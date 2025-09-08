@@ -60,7 +60,8 @@ Manage overall hierarchy of the system - student accounts, permissions, system p
     - As an administrator, I want to manage user accounts and permissions so that people only see what they’re supposed to.
     - As an administrator, I want to have backup data at a scheduled time
     - As an administrator, I want to monitor system performance and logs so that I can catch and fix issues quickly.
-     - As an administrator, I want to enroll students into the correct courses which they have registered for
+    - As an administrator, I want to enroll students into the correct courses which they have registered for
+    -As an administrator, I want the app to handle lots of traffic so everyone can use it smoothly, even when it’s busy.
 
 
 ## Minimum Viable Product
@@ -90,4 +91,39 @@ IDE supports multiple languages tied to class learning objectives (e.g., Python,
 
 Admins handle user accounts, permissions, and course enrollments.
 System settings for runtimes in the IDE/autograder.
+
+
+## Frontend Pages & Layout
+
+### Navigation / General Layout
+
+#### Navigation Bar (Left Sidebar)
+
+Links to: Dashboard, My Courses, Notifications, Profile, Grades Page: View scores & feedback per assignment and Notifications Page: View announcements, deadlines, reminders
+
+Allows switching between different assignments
+
+### Dashboard Pages
+Student Dashboard
+
+### Course Page
+
+#### Left Panel: Assignment Instructions
+Shows problem description, examples, hints
+Can be resized / enlarged
+
+#### Right Panel: In-Browser IDE
+Predefined function body for each question
+Supports multiple languages (Python, Java, C++)
+Can be resized / enlarged
+
+##### Buttons:
+Run (dark grey) → runs code and shows test case results
+Submit (light green) → final submission + test case results
+
+Test cases panel appears below IDE after running/submitting
+
+Other Pages
+
+
 
