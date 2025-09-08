@@ -1,0 +1,41 @@
+flowchart TD
+    %% Home/Login
+    Home[Home Page] --> Login[Login/Register]
+
+    %% Dashboards based on role
+    Login --> StudentDash[Student Dashboard]
+    Login --> InstructorDash[Instructor Dashboard]
+    Login --> AdminDash[Admin Dashboard]
+    Login --> TA[Teaching Assistant Dashboard]
+
+    %% Student Dashboard
+    StudentDash --> S1[My Courses]
+    StudentDash --> S2[My Grades]
+    StudentDash --> S3[Profile]
+    StudentDash --> S4[Notifications]
+    S1 --> S5[Course Assignments]
+    S5 --> S6[Submit Assignment]
+    S5 --> S7[In-Browser IDE]
+    S5 --> S8[Hints / Help]
+    S1 --> S9[Quizzes & Interactive Assessments]
+    S1 --> S10[Access Past Submissions & Materials]
+
+    %% TA Dashboard
+    TA --> TA1[View Student Submissions]
+    TA --> TA3[Grant Assignment Extensions]
+    TA --> TA4[Post Reminders / Moderate Forum]
+
+    %% Instructor Dashboard
+    InstructorDash --> I1[Manage Courses]
+    InstructorDash --> I2[Manage Students]
+    InstructorDash --> I3[Post Announcements]
+    I1 --> I4[Create Assignments]
+    I4 --> I5[Set Deadlines & Rubrics]
+    I4 --> I6[Ensure Learning Objectives Met]
+    I1 --> I8[Grade Assignments / View Submissions]
+
+    %% Admin Dashboard
+    AdminDash --> A1[Manage User Accounts & Permissions]
+    AdminDash --> A3[Monitor System Performance & Logs]
+    AdminDash --> A4[Data Backup Scheduling]
+    AdminDash --> A6[Ensure High Traffic Handling]
