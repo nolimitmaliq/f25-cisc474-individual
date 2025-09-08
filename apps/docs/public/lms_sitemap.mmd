@@ -39,3 +39,25 @@ flowchart TD
     AdminDash --> A3[Monitor System Performance & Logs]
     AdminDash --> A4[Data Backup Scheduling]
     AdminDash --> A6[Ensure High Traffic Handling]
+
+
+
+    erDiagram
+    %% Roles
+    STUDENT ||--o{ COURSE : enrolls_in
+    STUDENT ||--o{ SUBMISSION : submits
+
+    TA ||--o{ SUBMISSION : reviews
+    INSTRUCTOR ||--o{ COURSE : manages
+    INSTRUCTOR ||--o{ ASSIGNMENT : creates
+    INSTRUCTOR ||--o{ SUBMISSION : grades
+
+    ADMIN ||--o{ USER : manages
+    ADMIN ||--o{ COURSE : manages
+    ADMIN ||--o{ SYSTEM_SETTING : configures
+
+    %% Core Learning Elements
+    COURSE ||--o{ ASSIGNMENT : contains
+    ASSIGNMENT ||--o{ SUBMISSION : receives
+    SUBMISSION ||--o{ FEEDBACK : has
+    AUTOGRADER ||--o{ SUBMISSION : evaluates
