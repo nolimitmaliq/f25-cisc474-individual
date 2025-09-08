@@ -1,3 +1,5 @@
+```mermaid
+
 flowchart TD
     %% Home/Login
     Home[Home Page] --> Login[Login/Register]
@@ -22,6 +24,7 @@ flowchart TD
     %% TA Dashboard
     TA --> TA1[View Student Submissions]
     TA --> TA3[Grant Assignment Extensions]
+    TA1 --> TA5[Search by Students]
 
     %% Instructor Dashboard
     InstructorDash --> I1[Manage Courses]
@@ -36,11 +39,11 @@ flowchart TD
     AdminDash --> A1[Manage User Accounts & Permissions]
     AdminDash --> A4[Data Backup Scheduling]
 
-link : https://mermaid.live/edit#pako:eNp9VF1P2zAU_SuWJfZEoWmbtMnDpELRVolujHZ7mNsHN75NvbU2sh0-xX_fjQ0hZEAeItv33K9zrv1Acy2AZnSz0zf5lhtHFpOlIvgdHJCveg_H57qQKhxVe1b9yAUvYEU6nc_Em5n_H19CIa0Ds1qqOsaE2-1acyMsWXMLgmhFjN5BAHg_H2fuSgHKVXD2tH7xXbXRU2WdKXOnjXd42X7gMxZ7qTzcrz5ALsZsATzfSlWQsbXYE29VU7f3X6nB0ugmdBex2R051aWxYFfvYHoV5ovh4n1In10YvZE7eA8wYN-0kxuZcye1quNEwRqzUILvqlB7dK0hcYAkbF6u99I1IC3EEOnunBh9Y8GQ6eSslSNlP0p5fw-WfEKZcBp47uS1TwnWvkr55BF12TjP0YhjZR3x-TE5lo8hZhxDSL6zTdYX4zbheBKUi9gvCTe1Lo1gqxayz5Br1WyUnN06UM_gOttb0xWMr8cwTCYqzRVej5bab0F7z9Cnaj_CovIayRkrpUuVQ5PHaeBxOmCnBpCuN9SdDgIkZnPAYQUudlJ5iS7LtZF5G5ewM2VLA-QcuFHVPfi-_gNeSEtm4FqZR8yPbTMxOSZBiFcC1Jy2rmA4r29ouK81kz-rScMRwc5dVfMFmJaoLc8Bm3DHyQnP_5ZXZJ5vQZTYcLGih7QwUtAM-YVDusdAvNrShyrOkrotMrukGS4FbHi5c0u6VI_odsXVb633z55Gl8WWZhscTNyVVwJ5n0heGP4CASXAnFZF0yzuxz4GzR7oLc06vX73KIqG3VE0Svv9NE7RfIfnw9FROkiSNEmS0TBOouTxkN77vL2jqBsNkng4StM4SeMIPUBIHJJZeML9S_74D_yK3go
-
+```
 
     
-    erDiagram
+``` mermaid  
+erDiagram
     %% Roles
     STUDENT ||--o{ COURSE : enrolls_in
     STUDENT ||--o{ SUBMISSION : submits
@@ -60,5 +63,4 @@ link : https://mermaid.live/edit#pako:eNp9VF1P2zAU_SuWJfZEoWmbtMnDpELRVolujHZ7mN
     SUBMISSION ||--o{ FEEDBACK : has
     AUTOGRADER ||--o{ SUBMISSION : evaluates
 
-    Link : https://mermaid.live/edit#pako:eNp1klFv2jAUhf-KZalvtEpIIMNvaeKhaCNIsfOwKlLlkUuwlNiVSVg7yn-fKQFEl_rJ1_58zvWx93ilS8AEg4mlqIxoCoXsuLtDma5he6oYz2OacvT-fn-v9yha5hmjiCBQRtf19lmqQY7lj4uEsWSZWnbb_W5kawVPKA8HKQM7CX962yRlPMsjvsz-c26EEhV8yYVWb54ujr0QtDIg2q_ZG3-bQAmXJsN4kaRnLmc0--x8Aww3d4OwX4zTxTOjnCfp_NibVmtZdebqaZOPtAH0E4RRUlWI1tCAanu53mTwnlq1Qqqz73VrOOgVyN3lga9bPfyd0vgxjH5YdCPOkjlfzrMwpsPZwU7U3SlpPMKVkSUmrelghBswjTiWeH9UKnC7sXcqMLHTEtaiq9sCF-pgj70I9aR1cz5pdFdtMFmLemur7qW0-v1HvSCgSjCR7lSLiRd8SGCyx6-YuO63B8efuuOZP535k8BzR_jNQnZ1Goy96SQIfNcZu4cR_vth6jwEvhO4_swO15s43uTwD3aM8i0
-
+```

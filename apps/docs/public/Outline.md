@@ -15,6 +15,7 @@ Lerners who take the course, submit assignments, and check grades and feedback.
         As a student, I want to view assignment instructions and deadlines so that I know what’s expected of me.
         As a student, I want to submit assignments for grading.
         As a student, I want to have a fully functional IDE that supports multiple programming languages to write my code.
+        As a student, I want to take quizzes or interactive assessments inside the LMS so that I can test my knowledge quickly.
         As a student, I want to access course content and past submissions so that I can study for exams or reference old work.
 
     Feedback & Grades
