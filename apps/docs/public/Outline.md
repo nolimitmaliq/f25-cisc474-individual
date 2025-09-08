@@ -13,11 +13,8 @@ Lerners who take the course, submit assignments, and check grades and feedback.
     
     Assignments & Submissions
         As a student, I want to view assignment instructions and deadlines so that I know what’s expected of me.
-        As a student, I want to ubmit assignments for grading.
+        As a student, I want to submit assignments for grading.
         As a student, I want to have a fully functional IDE that supports multiple programming languages to write my code.
-        As a student, I want to re-submit assignments so that I can fix mistakes and improve my grade.
-        As a student, I want hints whenever I am stuck on a problem
-        As a student, I want to take quizzes or interactive assessments inside the LMS so that I can test my knowledge quickly.
         As a student, I want to access course content and past submissions so that I can study for exams or reference old work.
 
     Feedback & Grades
@@ -50,7 +47,6 @@ set up the course content, and create assignments.
     - As an instructor, I want to set deadlines, late policies, and grading rubrics so that course expectations are clear.
     - As an instructor, I want to post announcements and updates so that all students stay informed.
     - As an instructor, I want to post student submission
-    - As an instructor, I want to have a centralized view of my students submissions.
     - As an instructor, I want to have assignments that satisfy the learning objective
 
 ### Administrators: 
@@ -84,7 +80,7 @@ Simple gradebook for students.
 Announcement from instructors
 
 ### In-Browser IDE
-Students can write, run, and debug code directly inside the LMS.
+Students can write, and run directly inside the LMS.
 IDE supports multiple languages tied to class learning objectives (e.g., Python, Java, C++).
 
 ### Administrator Tools
@@ -109,7 +105,7 @@ Student Dashboard
 ### Course Page
 
 #### Left Panel: Assignment Instructions
-Shows problem description, examples, hints
+Shows problem description, examples
 Can be resized / enlarged
 
 #### Right Panel: In-Browser IDE
