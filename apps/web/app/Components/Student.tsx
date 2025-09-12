@@ -6,6 +6,9 @@ export default function Student() {
     const [activeTab, setActiveTab] = useState("Courses");
     const router = useRouter();
     const tabs = ["Courses", "Submissions", "Notifications", "Profile", "Sign Out"];
+    const courseDescription = 
+    ["Introduction to Calculus - Fall 2025", "Multivariable Calculus", "Applied Statistcs"]
+
 
     const handleTabClick = (tab: string) => {
         if (tab === "Sign Out") {
@@ -23,18 +26,16 @@ export default function Student() {
                     <div>
                         <h2>My Courses</h2>
                         <div style={{ display: "grid", gap: "1rem" }}>
-                            <div style={{ border: "1px solid #ddd", padding: "1rem", borderRadius: "8px" }}>
-                                <h3>Mathematics 101</h3>
-                                <p>Introduction to Calculus</p>
-                                <p><strong>Instructor:</strong> Dr. Smith</p>
-                                <p><strong>Progress:</strong> 75%</p>
-                            </div>
-                            <div style={{ border: "1px solid #ddd", padding: "1rem", borderRadius: "8px" }}>
-                                <h3>Computer Science 201</h3>
-                                <p>Data Structures and Algorithms</p>
-                                <p><strong>Instructor:</strong> Prof. Johnson</p>
-                                <p><strong>Progress:</strong> 60%</p>
-                            </div>
+                              {["Mathematics 101"].map((course, courseIndex) => {
+                                return (
+                                    <div key = {courseIndex} style={{ border: "1px solid #ddd", padding: "1rem", borderRadius: "8px" }}>
+                                        <h3>{course}</h3>
+                                        <p>{courseDescription[courseIndex]}</p>
+                                        <p><strong>Instructor:</strong> Dr. Smith</p>
+                                        <p><strong>Progress:</strong> 75%</p>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                 );
@@ -43,18 +44,16 @@ export default function Student() {
                     <div>
                         <h2>My Submissions</h2>
                         <div style={{ display: "grid", gap: "1rem" }}>
-                            <div style={{ border: "1px solid #ddd", padding: "1rem", borderRadius: "8px" }}>
-                                <h3>Assignment 1 - Math 101</h3>
-                                <p><strong>Status:</strong> Submitted</p>
-                                <p><strong>Grade:</strong> 85/100</p>
-                                <p><strong>Due Date:</strong> 2025-09-10</p>
-                            </div>
-                            <div style={{ border: "1px solid #ddd", padding: "1rem", borderRadius: "8px" }}>
-                                <h3>Project 1 - CS 201</h3>
-                                <p><strong>Status:</strong> In Progress</p>
-                                <p><strong>Grade:</strong> Pending</p>
-                                <p><strong>Due Date:</strong> 2025-09-15</p>
-                            </div>
+                             {["Assignment"].map((assignment, assignmentIndex) => {
+                                return (
+                                    <div key = {assignmentIndex}  style={{ border: "1px solid #ddd", padding: "1rem", borderRadius: "8px" }}>
+                                    <h3>{assignment}</h3>
+                                    <p><strong>Status:</strong> Submitted</p>
+                                    <p><strong>Grade:</strong> 85/100</p>
+                                    <p><strong>Due Date:</strong> 2025-09-10</p>
+                                    </div>
+                                )
+                             })}
                         </div>
                     </div>
                 );
