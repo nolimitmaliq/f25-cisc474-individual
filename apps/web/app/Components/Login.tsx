@@ -91,7 +91,7 @@ export default function Login() {
               fontSize: "1rem"
             }}
           >
-            Login as {role}
+            Login
           </button>
         </form>
 
