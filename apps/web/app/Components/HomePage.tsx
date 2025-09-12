@@ -9,15 +9,11 @@ export default function HomePage() {
   const router = useRouter();
 
   const navigationItems = [
-    { name: "Features", href: "#features" },
-    { name: "Pricing", href: "#pricing" },
     { name: "About", href: "#about" },
     { name: "Contact Us", href: "#contact" }
   ];
 
   const handleLoginClick = () => {
-    console.log("Login button clicked!");
-    console.log("Attempting to navigate to /login");
     router.push("/login");
 };
 
@@ -66,21 +62,6 @@ export default function HomePage() {
                   Access courses, track progress, and connect with learners worldwide—all 
                   powered by cutting-edge AI technology.
                 </p>
-                
-                <div className="cta-buttons">
-                  <button className="primary-btn">
-                    Start learning for free
-                    <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </button>
-                  <button className="secondary-btn">
-                    Watch demo
-                    <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-5-8a3 3 0 110 6H9V7z" />
-                    </svg>
-                  </button>
-                </div>
               </div>
             </div>
           </div>
