@@ -52,15 +52,14 @@ export default function HomePage() {
             <div className="hero-grid">
               <div className="hero-content">
                 <h1 className="hero-title">
-                  Learning Space
+                  Learning Hub
                   <br />
                   <span className="hero-title-accent">Achieve everything.</span>
                 </h1>
                 
                 <p className="hero-description">
                   Transform your learning journey with our comprehensive LMS platform. 
-                  Access courses, track progress, and connect with learners worldwide—all 
-                  powered by cutting-edge AI technology.
+                  Access courses, track progress, and connect with learners worldwide.
                 </p>
               </div>
             </div>
