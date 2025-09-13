@@ -81,13 +81,12 @@ export default function Admin() {
             fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
         }}>
             <nav style={{
-                // Changed background color to match HomePage
+            
                 backgroundColor: "rgba(255, 255, 255, 0.8)",
-                // Added backdrop-filter to match HomePage
                 backdropFilter: "blur(12px)", 
                 padding: "1rem",
                 boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                borderBottom: "1px solid #e2e8f0" // Added border to match HomePage
+                borderBottom: "1px solid #e2e8f0"
             }}>
                 <h1 style={{ color: "black", margin: 0, marginBottom: "1rem" }}>Admin Dashboard</h1>
                 <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
@@ -127,7 +126,6 @@ export default function Admin() {
                     })}
                 </div>
             </nav>
-            {/* Main Content */}
             <main>
                 {renderTabContent()}
             </main>
