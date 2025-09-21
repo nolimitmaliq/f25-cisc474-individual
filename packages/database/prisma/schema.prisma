@@ -18,6 +18,12 @@ enum Role {
   Instructor
 }
 
+enum Semester {
+  Fall
+  Spring
+  Summer
+}
+
 //The student field in your User table is just a convenient way to tell Prisma to use the userID 
 // to go look in the Student table and find the matching record.
 model Users{
@@ -38,7 +44,8 @@ model Student {
   user         Users     @relation(fields: [userId], references: [user_id]) // relation to Users
   emailVerified DateTime?
   major        String?
-  course   CoursesEnrolled[]  // many-to-many relation with Course
+  enrollments   CoursesEnrolled[]  // many students can enroll in many courses
+  submissions Submission[] // one student can have many submissions
   
 }
 
@@ -48,7 +55,7 @@ model Instructor {
   user         Users     @relation(fields: [userId], references: [user_id]) // relation to Users
   department   String?
   office       String?
-  courses      Course[]  // one-to-many relation with Course
+  sections     Section[]  // one-to-many relation with Section
 }
 
 model Admin {
@@ -62,20 +69,69 @@ model Course {
   title       String
   description String?
   credits     Int
-  instructorId String // foreign key to Instructor
-  instructor  Instructor @relation(fields: [instructorId], references: [id])
-  students    CoursesEnrolled[] // many-to-many relation with Student
+  code        String   @unique
+  assignments CourseAssignment[] // one course has many assignments
+  announcements Message[] // one course has many announcements
+  sections    Section[] // one course has many sections
+  enrollments CoursesEnrolled[] // many students can enroll in many courses
   }
 
 model CoursesEnrolled {
   id          String   @id @default(cuid())
   studentId   String
   courseId    String
-  grade       String?
+  FinalGrade      Float?
   enrollmentDate DateTime @default(now())
   student     Student   @relation(fields: [studentId], references: [id])
   course      Course    @relation(fields: [courseId], references: [id])
-  @@unique([studentId, courseId])
+  sectionId      String
+  section   Section @relation(fields: [sectionId], references: [id])
+  @@unique([studentId, sectionId])
 }
 
+model CourseAssignment {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  dueDate     DateTime
+  courseId    String //course foreign key
+  course      Course   @relation(fields: [courseId], references: [id])
+  submissions  Submission[] // one-to-many relation with Submission
+}
+
+
+model Submission {
+  id             String   @id @default(cuid())
+  submissionDate DateTime @default(now())
+  grade          Int?
+  content        String? 
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId String
+  assignment   CourseAssignment @relation(fields: [assignmentId], references: [id])
+  assignmentId String
+  @@unique([studentId, assignmentId])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  DateCreated DateTime @default(now())
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id])
+}
+
+model Section{
+  id        String   @id @default(cuid())
+  semester  Semester
+  name      String
+  code      String
+  year      Int
+  courseID  String
+  course    Course   @relation(fields: [courseID], references: [id])
+  enrollments  CoursesEnrolled[] // many students can enroll in many courses
+  instructorId String
+  instructor   Instructor @relation(fields: [instructorId], references: [id])
+  @@unique([courseID, year, semester, code])
+}
 
