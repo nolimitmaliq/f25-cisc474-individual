@@ -1,0 +1,58 @@
+[
+  {
+    "studentEmail": "john.smith@university.edu",
+    "assignmentTitle": "Programming Assignment 1: Hello World",
+    "submissionDate": "2024-09-14T20:30:00Z",
+    "status": "Graded",
+    "grade": 95,
+    "content": "print('Hello, World!')\nname = input('Enter your name: ')\nprint(f'Hello, {name}!')"
+  },
+  {
+    "studentEmail": "john.smith@university.edu",
+    "assignmentTitle": "Programming Assignment 2: Variables and Data Types",
+    "submissionDate": "2024-09-29T22:15:00Z",
+    "status": "Graded",
+    "grade": 88,
+    "content": "# Demonstrating different data types\ninteger_var = 42\nfloat_var = 3.14\nstring_var = 'Hello Python'\nboolean_var = True\n\nprint(f'Integer: {integer_var}, type: {type(integer_var)}')"
+  },
+  {
+    "studentEmail": "emily.johnson@university.edu",
+    "assignmentTitle": "Programming Assignment 1: Hello World",
+    "submissionDate": "2024-09-13T18:45:00Z",
+    "status": "Graded",
+    "grade": 92,
+    "content": "print('Hello, World!')\nprint('This is my first Python program!')\nuser_input = input('What is your favorite subject? ')\nprint('That is interesting!')"
+  },
+  {
+    "studentEmail": "emily.johnson@university.edu",
+    "assignmentTitle": "Calculus Problem Set 1",
+    "submissionDate": "2024-09-19T21:00:00Z",
+    "status": "Graded",
+    "grade": 97,
+    "content": "Solutions to derivative problems:\n1. f(x) = 3x² + 2x - 1, f'(x) = 6x + 2\n2. f(x) = sin(x) + cos(x), f'(x) = cos(x) - sin(x)\n[Detailed work shown for each problem]"
+  },
+  {
+    "studentEmail": "sarah.davis@university.edu",
+    "assignmentTitle": "Psychology Case Study Analysis",
+    "submissionDate": "2024-10-09T19:30:00Z",
+    "status": "Graded",
+    "grade": 89,
+    "content": "Case Study Analysis: Patient X exhibits symptoms consistent with generalized anxiety disorder. Using cognitive-behavioral framework, the following observations are made: [Detailed analysis continues...]"
+  },
+  {
+    "studentEmail": "michael.brown@university.edu",
+    "assignmentTitle": "Calculus Problem Set 1",
+    "submissionDate": "2024-09-20T23:45:00Z",
+    "status": "Graded",
+    "grade": 84,
+    "content": "Derivative calculations:\nProblem 1: d/dx(x³ - 2x² + 5x) = 3x² - 4x + 5\nProblem 2: d/dx(e^x * ln(x)) = e^x * ln(x) + e^x/x\n[Solutions with step-by-step work]"
+  },
+  {
+    "studentEmail": "alex.wilson@university.edu",
+    "assignmentTitle": "Programming Assignment 1: Hello World",
+    "submissionDate": "2024-09-15T23:58:00Z",
+    "status": "Submitted",
+    "grade": null,
+    "content": "print('Hello, World!')\nprint('My name is Alex Wilson')\nprint('I am excited to learn programming!')"
+  }
+]

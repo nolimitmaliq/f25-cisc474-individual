@@ -1,0 +1,56 @@
+[
+  {
+    "title": "Programming Assignment 1: Hello World",
+    "description": "Write your first program in Python that prints 'Hello, World!' and demonstrates basic input/output operations.",
+    "dueDate": "2024-09-15T23:59:00Z",
+    "courseCode": "CS101"
+  },
+  {
+    "title": "Programming Assignment 2: Variables and Data Types",
+    "description": "Create a program that demonstrates the use of different data types and variable operations.",
+    "dueDate": "2024-09-30T23:59:00Z",
+    "courseCode": "CS101"
+  },
+  {
+    "title": "Midterm Project: Simple Calculator",
+    "description": "Build a console-based calculator that can perform basic arithmetic operations.",
+    "dueDate": "2024-10-15T23:59:00Z",
+    "courseCode": "CS101"
+  },
+  {
+    "title": "Algorithm Analysis Assignment",
+    "description": "Analyze the time and space complexity of various sorting algorithms.",
+    "dueDate": "2024-10-01T23:59:00Z",
+    "courseCode": "CS201"
+  },
+  {
+    "title": "Data Structures Implementation",
+    "description": "Implement a linked list, stack, and queue with full functionality.",
+    "dueDate": "2024-10-20T23:59:00Z",
+    "courseCode": "CS201"
+  },
+  {
+    "title": "Calculus Problem Set 1",
+    "description": "Solve derivative problems involving polynomial, exponential, and trigonometric functions.",
+    "dueDate": "2024-09-20T23:59:00Z",
+    "courseCode": "MATH151"
+  },
+  {
+    "title": "Calculus Problem Set 2",
+    "description": "Applications of derivatives including optimization and related rates problems.",
+    "dueDate": "2024-10-05T23:59:00Z",
+    "courseCode": "MATH151"
+  },
+  {
+    "title": "Psychology Research Paper",
+    "description": "Write a 5-page research paper on a chosen topic in cognitive psychology with APA formatting.",
+    "dueDate": "2024-11-01T23:59:00Z",
+    "courseCode": "PSYC101"
+  },
+  {
+    "title": "Psychology Case Study Analysis",
+    "description": "Analyze a provided case study using psychological principles and theories.",
+    "dueDate": "2024-10-10T23:59:00Z",
+    "courseCode": "PSYC101"
+  }
+]

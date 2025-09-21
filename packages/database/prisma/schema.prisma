@@ -24,6 +24,11 @@ enum Semester {
   Summer
 }
 
+enum SubmissionStatus {
+  Submitted
+  Graded
+}
+
 //The student field in your User table is just a convenient way to tell Prisma to use the userID 
 // to go look in the Student table and find the matching record.
 model Users{
@@ -87,6 +92,10 @@ model CoursesEnrolled {
   sectionId      String
   section   Section @relation(fields: [sectionId], references: [id])
   @@unique([studentId, sectionId])
+  @@index([studentId, courseId, sectionId])
+  @@index([studentId])
+  @@index([sectionId])
+  @@index([courseId])
 }
 
 model CourseAssignment {
@@ -103,6 +112,7 @@ model CourseAssignment {
 model Submission {
   id             String   @id @default(cuid())
   submissionDate DateTime @default(now())
+  status         SubmissionStatus @default(Submitted)
   grade          Int?
   content        String? 
   student   Student @relation(fields: [studentId], references: [id])
@@ -110,6 +120,8 @@ model Submission {
   assignment   CourseAssignment @relation(fields: [assignmentId], references: [id])
   assignmentId String
   @@unique([studentId, assignmentId])
+  @@index([studentId])
+  @@index([assignmentId])
 }
 
 model Message {
