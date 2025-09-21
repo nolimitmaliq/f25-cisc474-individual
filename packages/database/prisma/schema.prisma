@@ -12,9 +12,70 @@ generator client {
   output   = "../generated/client"
 }
 
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
+enum Role {
+  Student
+  Admin
+  Instructor
 }
+
+//The student field in your User table is just a convenient way to tell Prisma to use the userID 
+// to go look in the Student table and find the matching record.
+model Users{
+  user_id        String   @id @default(cuid())
+  bio       String?
+  email     String  @unique
+  password  String
+  name      String?
+  lastname  String?
+  role      Role     @default(Student)
+  student   Student? // one-to-one relation with Student
+  Instructor Instructor? // one-to-one relation with Instructor
+  Admin     Admin? // one-to-one relation with Admin
+}
+model Student {
+  id            String    @id @default(cuid())
+  userId       String    @unique // foreign key to Users
+  user         Users     @relation(fields: [userId], references: [user_id]) // relation to Users
+  emailVerified DateTime?
+  major        String?
+  course   CoursesEnrolled[]  // many-to-many relation with Course
+  
+}
+
+model Instructor {
+  id            String    @id @default(cuid())
+  userId       String    @unique // foreign key to Users
+  user         Users     @relation(fields: [userId], references: [user_id]) // relation to Users
+  department   String?
+  office       String?
+  courses      Course[]  // one-to-many relation with Course
+}
+
+model Admin {
+  id            String    @id @default(cuid())
+  userId       String    @unique // foreign key to Users
+  user         Users     @relation(fields: [userId], references: [user_id]) // relation to Users
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  credits     Int
+  instructorId String // foreign key to Instructor
+  instructor  Instructor @relation(fields: [instructorId], references: [id])
+  students    CoursesEnrolled[] // many-to-many relation with Student
+  }
+
+model CoursesEnrolled {
+  id          String   @id @default(cuid())
+  studentId   String
+  courseId    String
+  grade       String?
+  enrollmentDate DateTime @default(now())
+  student     Student   @relation(fields: [studentId], references: [id])
+  course      Course    @relation(fields: [courseId], references: [id])
+  @@unique([studentId, courseId])
+}
+
+
