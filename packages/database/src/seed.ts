@@ -259,7 +259,7 @@ async function seedMessages() {
 }
 
 async function main() {
-  
+  console.log('✅ Seed script started.');
   try {
     // Order matters due to foreign key relationships
     await seedUsers();

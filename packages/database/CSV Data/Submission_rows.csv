@@ -1,0 +1,27 @@
+id,submissionDate,status,grade,content,studentId,assignmentId
+cmfuep92q002htnfbnhmn0ng6,2024-09-14 20:30:00,Graded,95,"print('Hello, World!')
+name = input('Enter your name: ')
+print(f'Hello, {name}!')",cmfuep3jw000btnfbzxoo4hhj,cmfuep828001ztnfb6fvlaurt
+cmfuep980002jtnfbf2f3l8h3,2024-09-29 22:15:00,Graded,88,"# Demonstrating different data types
+integer_var = 42
+float_var = 3.14
+string_var = 'Hello Python'
+boolean_var = True
+
+print(f'Integer: {integer_var}, type: {type(integer_var)}')",cmfuep3jw000btnfbzxoo4hhj,cmfuep85y0021tnfbrshlreio
+cmfuep9dc002ltnfbcrsqsnlo,2024-09-13 18:45:00,Graded,92,"print('Hello, World!')
+print('This is my first Python program!')
+user_input = input('What is your favorite subject? ')
+print('That is interesting!')",cmfuep3nv000dtnfbumzbyr15,cmfuep828001ztnfb6fvlaurt
+cmfuep9il002ntnfbv47lfesi,2024-09-19 21:00:00,Graded,97,"Solutions to derivative problems:
+1. f(x) = 3x² + 2x - 1, f'(x) = 6x + 2
+2. f(x) = sin(x) + cos(x), f'(x) = cos(x) - sin(x)
+[Detailed work shown for each problem]",cmfuep3nv000dtnfbumzbyr15,cmfuep8km0029tnfba444pm23
+cmfuep9p8002ptnfbf5hpb1eu,2024-10-09 19:30:00,Graded,89,"Case Study Analysis: Patient X exhibits symptoms consistent with generalized anxiety disorder. Using cognitive-behavioral framework, the following observations are made: [Detailed analysis continues...]",cmfuep3vw000htnfb80jg79br,cmfuep8wz002ftnfbqzc1ezft
+cmfuep9ut002rtnfbrhr9wqve,2024-09-20 23:45:00,Graded,84,"Derivative calculations:
+Problem 1: d/dx(x³ - 2x² + 5x) = 3x² - 4x + 5
+Problem 2: d/dx(e^x * ln(x)) = e^x * ln(x) + e^x/x
+[Solutions with step-by-step work]",cmfuep3re000ftnfbt0f7d4sh,cmfuep8km0029tnfba444pm23
+cmfuepa01002ttnfbifipxn4a,2024-09-15 23:58:00,Submitted,,"print('Hello, World!')
+print('My name is Alex Wilson')
+print('I am excited to learn programming!')",cmfuep3zg000jtnfbaulu814m,cmfuep828001ztnfb6fvlaurt
