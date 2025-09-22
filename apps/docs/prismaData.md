@@ -15,7 +15,7 @@
 ## CoursesEnrolled
     https://github.com/nolimitmaliq/f25-cisc474-individual/blob/Schema_Build/packages/database/CSV%20Data/CoursesEnrolled_rows.csv
 
-##Instructor
+## Instructor
     https://github.com/nolimitmaliq/f25-cisc474-individual/blob/Schema_Build/packages/database/CSV%20Data/Instructor_rows.csv
 
 ## Message
