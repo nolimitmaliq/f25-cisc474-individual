@@ -1,52 +1,35 @@
 import { Injectable } from '@nestjs/common';
 
-import { Link } from '@repo/api/links/entities/link.entity';
+// import { Link } from '@repo/api/links/entities/link.entity';
 
 import { CreateLinkDto } from '@repo/api/links/dto/create-link.dto';
 import { UpdateLinkDto } from '@repo/api/links/dto/update-link.dto';
+import { PrismaService } from '../prisma.service'
+import { Link } from '@repo/database'
 
 @Injectable()
 export class LinksService {
-  private readonly _links: Link[] = [
-    {
-      id: 0,
-      title: 'Docs',
-      url: 'https://turborepo.com/docs',
-      description:
-        'Find in-depth information about Turborepo features and API.',
-    },
-    {
-      id: 1,
-      title: 'Learn',
-      url: 'https://turborepo.com/docs/handbook',
-      description: 'Learn more about monorepos with our handbook.',
-    },
-    {
-      id: 2,
-      title: 'Templates',
-      url: 'https://turborepo.com/docs/getting-started/from-example',
-      description:
-        'Choose from over 15 examples and deploy with a single click.',
-    },
-    {
-      id: 3,
-      title: 'Deploy',
-      url: 'https://vercel.com/new',
-      description:
-        'Instantly deploy your Turborepo to a shareable URL with Vercel.',
-    },
-  ];
+  constructor(private prisma: PrismaService) {}
+  // private readonly _links: Link[] = [
+  // ];
 
   create(createLinkDto: CreateLinkDto) {
     return `This action adds a new link ${createLinkDto}`;
   }
 
-  findAll() {
-    return this._links;
+  async findAll(): Promise<Link[]> {
+    return this.prisma.link.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} link`;
+  async findOne(id: number): Promise<Link | null> {
+    const link = await this.prisma.link.findUnique({
+      where: { id: Number(id) },
+    });
+
+    if (!link) {
+      throw new Error(`Link with ID ${id} not found`);
+    }
+    return link;
   }
 
   update(id: number, updateLinkDto: UpdateLinkDto) {

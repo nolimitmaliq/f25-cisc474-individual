@@ -8,9 +8,11 @@ import {
   Delete,
 } from '@nestjs/common';
 import { LinksService } from './links.service';
-
+import { Link } from '@repo/database';
 import { CreateLinkDto } from '@repo/api/links/dto/create-link.dto';
 import { UpdateLinkDto } from '@repo/api/links/dto/update-link.dto';
+
+
 
 @Controller('links')
 export class LinksController {
@@ -22,12 +24,12 @@ export class LinksController {
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<Link[]> {
     return this.linksService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<Link> {
     return this.linksService.findOne(+id);
   }
 

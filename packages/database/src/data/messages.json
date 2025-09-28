@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Welcome to Introduction to Computer Science",
+    "content": "Welcome to CS101! This course will introduce you to fundamental programming concepts. Please make sure you have Python installed on your computer and join our Discord server for discussions.",
+    "dateCreated": "2024-08-20T09:00:00Z",
+    "courseCode": "CS101"
+  },
+  {
+    "title": "Assignment 1 Posted",
+    "content": "Programming Assignment 1 has been posted. It's due September 15th at 11:59 PM. Please read the instructions carefully and don't hesitate to ask questions during office hours.",
+    "dateCreated": "2024-09-01T10:30:00Z",
+    "courseCode": "CS101"
+  },
+  {
+    "title": "Office Hours Update",
+    "content": "My office hours for this week have been moved to Thursday 2-4 PM instead of Wednesday due to a conference. Location remains the same: Engineering Building 301.",
+    "dateCreated": "2024-09-10T14:00:00Z",
+    "courseCode": "CS101"
+  },
+  {
+    "title": "Midterm Exam Schedule",
+    "content": "The midterm exam will be held on October 25th during regular class time. It will cover all material from weeks 1-8. Study guide will be posted next week.",
+    "dateCreated": "2024-10-01T11:00:00Z",
+    "courseCode": "CS101"
+  },
+  {
+    "title": "Welcome to Calculus I",
+    "content": "Welcome to MATH151! This course covers differential calculus and its applications. Please bring a graphing calculator to each class and review your trigonometry before our next meeting.",
+    "dateCreated": "2024-08-21T08:00:00Z",
+    "courseCode": "MATH151"
+  },
+  {
+    "title": "Problem Set 1 Solutions Posted",
+    "content": "Solutions to Problem Set 1 have been uploaded to the course portal. Please review them carefully and come to office hours if you have any questions about the solution methods.",
+    "dateCreated": "2024-09-25T16:00:00Z",
+    "courseCode": "MATH151"
+  },
+  {
+    "title": "Welcome to Psychology 101",
+    "content": "Welcome to Introduction to Psychology! This course will explore the scientific study of behavior and mental processes. Please purchase the required textbook and complete the online syllabus quiz by Friday.",
+    "dateCreated": "2024-08-22T13:00:00Z",
+    "courseCode": "PSYC101"
+  },
+  {
+    "title": "Research Paper Guidelines",
+    "content": "Detailed guidelines for the research paper have been posted. Remember to use APA format and include at least 5 peer-reviewed sources. The paper should be 5-7 pages, double-spaced.",
+    "dateCreated": "2024-10-15T10:00:00Z",
+    "courseCode": "PSYC101"
+  }
+]

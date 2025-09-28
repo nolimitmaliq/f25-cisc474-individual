@@ -1,0 +1,82 @@
+[
+  {
+    "email": "john.smith@university.edu",
+    "password": "$2a$10$hashedpassword1",
+    "name": "John",
+    "lastname": "Smith",
+    "bio": "Computer Science student passionate about machine learning and software development.",
+    "role": "Student"
+  },
+  {
+    "email": "emily.johnson@university.edu",
+    "password": "$2a$10$hashedpassword2",
+    "name": "Emily",
+    "lastname": "Johnson",
+    "bio": "Mathematics major with interests in data analysis and statistics.",
+    "role": "Student"
+  },
+  {
+    "email": "michael.brown@university.edu",
+    "password": "$2a$10$hashedpassword3",
+    "name": "Michael",
+    "lastname": "Brown",
+    "bio": "Engineering student focusing on robotics and automation systems.",
+    "role": "Student"
+  },
+  {
+    "email": "sarah.davis@university.edu",
+    "password": "$2a$10$hashedpassword4",
+    "name": "Sarah",
+    "lastname": "Davis",
+    "bio": "Psychology major interested in cognitive behavioral research.",
+    "role": "Student"
+  },
+  {
+    "email": "alex.wilson@university.edu",
+    "password": "$2a$10$hashedpassword5",
+    "name": "Alex",
+    "lastname": "Wilson",
+    "bio": "Business student with focus on entrepreneurship and innovation.",
+    "role": "Student"
+  },
+  {
+    "email": "dr.thompson@university.edu",
+    "password": "$2a$10$hashedpassword6",
+    "name": "Robert",
+    "lastname": "Thompson",
+    "bio": "Professor of Computer Science with 15 years of experience in software engineering and algorithms.",
+    "role": "Instructor"
+  },
+  {
+    "email": "dr.garcia@university.edu",
+    "password": "$2a$10$hashedpassword7",
+    "name": "Maria",
+    "lastname": "Garcia",
+    "bio": "Associate Professor of Mathematics specializing in applied mathematics and statistics.",
+    "role": "Instructor"
+  },
+  {
+    "email": "prof.lee@university.edu",
+    "password": "$2a$10$hashedpassword8",
+    "name": "David",
+    "lastname": "Lee",
+    "bio": "Assistant Professor of Psychology with research focus on developmental psychology.",
+    "role": "Instructor"
+  },
+  {
+    "email": "admin.jones@university.edu",
+    "password": "$2a$10$hashedpassword9",
+    "name": "Jennifer",
+    "lastname": "Jones",
+    "bio": "Academic Administrator overseeing student enrollment and course management.",
+    "role": "Admin"
+  },
+  {
+    "email": "admin.white@university.edu",
+    "password": "$2a$10$hashedpassword10",
+    "name": "Thomas",
+    "lastname": "White",
+    "bio": "System Administrator managing academic technology infrastructure.",
+    "role": "Admin"
+  }
+]

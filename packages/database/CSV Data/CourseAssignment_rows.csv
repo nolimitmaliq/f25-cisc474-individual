@@ -1,0 +1,10 @@
+id,title,description,dueDate,courseId
+cmfuep828001ztnfb6fvlaurt,Programming Assignment 1: Hello World,"Write your first program in Python that prints 'Hello, World!' and demonstrates basic input/output operations.",2024-09-15 23:59:00,cmfuep4md000utnfboux1ogy6
+cmfuep85y0021tnfbrshlreio,Programming Assignment 2: Variables and Data Types,Create a program that demonstrates the use of different data types and variable operations.,2024-09-30 23:59:00,cmfuep4md000utnfboux1ogy6
+cmfuep89r0023tnfbhmw9bza0,Midterm Project: Simple Calculator,Build a console-based calculator that can perform basic arithmetic operations.,2024-10-15 23:59:00,cmfuep4md000utnfboux1ogy6
+cmfuep8db0025tnfbtedwpxjd,Algorithm Analysis Assignment,Analyze the time and space complexity of various sorting algorithms.,2024-10-01 23:59:00,cmfuep4o8000vtnfbe0qfdt32
+cmfuep8h60027tnfbvm1kpvsc,Data Structures Implementation,"Implement a linked list, stack, and queue with full functionality.",2024-10-20 23:59:00,cmfuep4o8000vtnfbe0qfdt32
+cmfuep8km0029tnfba444pm23,Calculus Problem Set 1,"Solve derivative problems involving polynomial, exponential, and trigonometric functions.",2024-09-20 23:59:00,cmfuep4rq000xtnfbo4f3bxcx
+cmfuep8o2002btnfb3ccy0r4c,Calculus Problem Set 2,Applications of derivatives including optimization and related rates problems.,2024-10-05 23:59:00,cmfuep4rq000xtnfbo4f3bxcx
+cmfuep8sz002dtnfbw38042ai,Psychology Research Paper,Write a 5-page research paper on a chosen topic in cognitive psychology with APA formatting.,2024-11-01 23:59:00,cmfuep4y80010tnfblm56fsnr
+cmfuep8wz002ftnfbqzc1ezft,Psychology Case Study Analysis,Analyze a provided case study using psychological principles and theories.,2024-10-10 23:59:00,cmfuep4y80010tnfblm56fsnr
