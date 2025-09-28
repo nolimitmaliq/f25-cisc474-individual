@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Introduction to Computer Science",
+    "description": "Fundamental concepts of computer science including programming, algorithms, and data structures.",
+    "credits": 3,
+    "code": "CS101"
+  },
+  {
+    "title": "Data Structures and Algorithms",
+    "description": "Advanced study of data structures, algorithm design, and complexity analysis.",
+    "credits": 4,
+    "code": "CS201"
+  },
+  {
+    "title": "Database Systems",
+    "description": "Design and implementation of database systems, SQL, and database management.",
+    "credits": 3,
+    "code": "CS301"
+  },
+  {
+    "title": "Calculus I",
+    "description": "Differential calculus with applications to physical sciences and engineering.",
+    "credits": 4,
+    "code": "MATH151"
+  },
+  {
+    "title": "Statistics and Probability",
+    "description": "Introduction to statistical methods, probability theory, and data analysis.",
+    "credits": 3,
+    "code": "MATH201"
+  },
+  {
+    "title": "Linear Algebra",
+    "description": "Vector spaces, matrices, eigenvalues, and linear transformations.",
+    "credits": 3,
+    "code": "MATH301"
+  },
+  {
+    "title": "Introduction to Psychology",
+    "description": "Basic principles of psychology including cognition, behavior, and mental processes.",
+    "credits": 3,
+    "code": "PSYC101"
+  },
+  {
+    "title": "Research Methods in Psychology",
+    "description": "Statistical methods and experimental design in psychological research.",
+    "credits": 4,
+    "code": "PSYC201"
+  }
+]

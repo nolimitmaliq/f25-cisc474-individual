@@ -1,0 +1,66 @@
+[
+  {
+    "semester": "Fall",
+    "name": "Introduction to Computer Science - Section A",
+    "code": "001",
+    "year": 2024,
+    "courseCode": "CS101",
+    "instructorEmail": "dr.thompson@university.edu"
+  },
+  {
+    "semester": "Fall",
+    "name": "Introduction to Computer Science - Section B",
+    "code": "002",
+    "year": 2024,
+    "courseCode": "CS101",
+    "instructorEmail": "dr.thompson@university.edu"
+  },
+  {
+    "semester": "Fall",
+    "name": "Data Structures and Algorithms",
+    "code": "001",
+    "year": 2024,
+    "courseCode": "CS201",
+    "instructorEmail": "dr.thompson@university.edu"
+  },
+  {
+    "semester": "Spring",
+    "name": "Database Systems",
+    "code": "001",
+    "year": 2024,
+    "courseCode": "CS301",
+    "instructorEmail": "dr.thompson@university.edu"
+  },
+  {
+    "semester": "Fall",
+    "name": "Calculus I - Section A",
+    "code": "001",
+    "year": 2024,
+    "courseCode": "MATH151",
+    "instructorEmail": "dr.garcia@university.edu"
+  },
+  {
+    "semester": "Fall",
+    "name": "Calculus I - Section B",
+    "code": "002",
+    "year": 2024,
+    "courseCode": "MATH151",
+    "instructorEmail": "dr.garcia@university.edu"
+  },
+  {
+    "semester": "Spring",
+    "name": "Statistics and Probability",
+    "code": "001",
+    "year": 2024,
+    "courseCode": "MATH201",
+    "instructorEmail": "dr.garcia@university.edu"
+  },
+  {
+    "semester": "Fall",
+    "name": "Introduction to Psychology",
+    "code": "001",
+    "year": 2024,
+    "courseCode": "PSYC101",
+    "instructorEmail": "prof.lee@university.edu"
+  }
+]

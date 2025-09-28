@@ -1,0 +1,58 @@
+[
+  {
+    "studentEmail": "john.smith@university.edu",
+    "courseCode": "CS101",
+    "sectionCode": "001",
+    "enrollmentDate": "2024-08-15T09:00:00Z",
+    "finalGrade": 87.5
+  },
+  {
+    "studentEmail": "john.smith@university.edu",
+    "courseCode": "MATH151",
+    "sectionCode": "001",
+    "enrollmentDate": "2024-08-15T09:30:00Z",
+    "finalGrade": 92.0
+  },
+  {
+    "studentEmail": "emily.johnson@university.edu",
+    "courseCode": "MATH151",
+    "sectionCode": "002",
+    "enrollmentDate": "2024-08-16T10:00:00Z",
+    "finalGrade": 94.5
+  },
+  {
+    "studentEmail": "emily.johnson@university.edu",
+    "courseCode": "CS101",
+    "sectionCode": "002",
+    "enrollmentDate": "2024-08-16T10:30:00Z",
+    "finalGrade": 89.0
+  },
+  {
+    "studentEmail": "michael.brown@university.edu",
+    "courseCode": "MATH151",
+    "sectionCode": "001",
+    "enrollmentDate": "2024-08-17T11:00:00Z",
+    "finalGrade": 85.5
+  },
+  {
+    "studentEmail": "sarah.davis@university.edu",
+    "courseCode": "PSYC101",
+    "sectionCode": "001",
+    "enrollmentDate": "2024-08-18T14:00:00Z",
+    "finalGrade": 91.5
+  },
+  {
+    "studentEmail": "sarah.davis@university.edu",
+    "courseCode": "MATH151",
+    "sectionCode": "002",
+    "enrollmentDate": "2024-08-18T14:30:00Z",
+    "finalGrade": 88.0
+  },
+  {
+    "studentEmail": "alex.wilson@university.edu",
+    "courseCode": "CS101",
+    "sectionCode": "001",
+    "enrollmentDate": "2024-08-19T15:00:00Z",
+    "finalGrade": null
+  }
+]
