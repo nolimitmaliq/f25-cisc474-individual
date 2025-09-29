@@ -1,15 +1,14 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+    Controller,
+      Get,
+        Post,
+          Body,
+            Patch,
+              Param,
+                Delete,
+                } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Users,Role } from '@repo/database';
-
 interface CreateUserDto {
   email: string;
   password: string;

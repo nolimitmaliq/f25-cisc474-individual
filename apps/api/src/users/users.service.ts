@@ -1,9 +1,6 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-
-// import { Link } from '@repo/api/links/entities/link.entity';
-import { UpdateLinkDto } from '@repo/api/links/dto/update-link.dto';
 import { PrismaService } from '../prisma.service'
-import { Users,Role } from '@repo/database'
+import { Users,Role} from '@repo/database'
 
 interface CreateUserDto {
   email: string;
