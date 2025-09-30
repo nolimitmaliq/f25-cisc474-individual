@@ -3,7 +3,7 @@ import { PrismaService } from '../prisma.service'
 import { CourseAssignment} from '@repo/database'
 
 @Injectable()
-export class CourseassignmentService {
+export class CourseassignmentsService {
     constructor(private prisma: PrismaService) {}
     async findAll(): Promise<CourseAssignment[]> {
         return this.prisma.courseAssignment.findMany({

@@ -11,13 +11,14 @@ import { StudentsModule } from './students/students.modules';
 import { InstructorsModule } from './instructors/instructors.module';
 import { AdminsModule } from './admins/admins.module';
 import { CoursesEnrolledsModule } from './coursesenrolleds/coursesenrolleds.module';
-import { CourseassignmentModule } from './courseassignment/courseassignment.module';
+import { CourseassignmentsModule } from './courseassignments/courseassignments.module';
 import { SubmissionsModule } from './submissions/submissions.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [LinksModule, UsersModule, CoursesModule, SectionsModule, 
     StudentsModule, InstructorsModule, AdminsModule, CoursesEnrolledsModule,
-  CourseassignmentModule, SubmissionsModule],
+  CourseassignmentsModule, SubmissionsModule, MessagesModule],
   controllers: [AppController],
   providers: [AppService],
 })
