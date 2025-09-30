@@ -10,13 +10,6 @@ import {
 import { CoursesService } from './courses.service';
 import { Course} from '@repo/database';
 
-interface CreateCourseDto {
-  id: string;
-  title: string;
-  description?: string;
-  credits: number;
-  code: string;
-}
 
 @Controller('courses')
 export class CoursesController {

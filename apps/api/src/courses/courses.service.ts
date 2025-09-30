@@ -1,17 +1,6 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-
-// import { Link } from '@repo/api/links/entities/link.entity';
-import { UpdateLinkDto } from '@repo/api/links/dto/update-link.dto';
+import {Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service'
 import { Course} from '@repo/database'
-
-interface CreateCourseDto {
-  id: string;
-  title: string;
-  description?: string;
-  credits: number;
-  code: string;
-}
 @Injectable()
 export class CoursesService {
     constructor(private prisma: PrismaService) {}
