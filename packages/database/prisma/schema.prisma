@@ -1,5 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
 
 datasource db {
   provider  = "postgresql"
@@ -7,20 +9,124 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/client"
+model Users {
+  user_id    String      @id @default(cuid())
+  bio        String?
+  email      String      @unique
+  password   String
+  name       String?
+  lastname   String?
+  role       Role        @default(Student)
+  Admin      Admin?
+  Instructor Instructor?
+  student    Student?
 }
 
+model Student {
+  id            String            @id @default(cuid())
+  userId        String            @unique
+  emailVerified DateTime?
+  major         String?
+  enrollments   CoursesEnrolled[]
+  user          Users             @relation(fields: [userId], references: [user_id])
+  submissions   Submission[]
+}
 
-model Link {
-  id          Int      @id @default(autoincrement())
+model Instructor {
+  id         String    @id @default(cuid())
+  userId     String    @unique
+  department String?
+  office     String?
+  user       Users     @relation(fields: [userId], references: [user_id])
+  sections   Section[]
+}
+
+model Admin {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   Users  @relation(fields: [userId], references: [user_id])
+}
+
+model Course {
+  id            String             @id @default(cuid())
+  title         String
+  description   String?
+  credits       Int
+  code          String             @unique
+  assignments   CourseAssignment[]
+  enrollments   CoursesEnrolled[]
+  announcements Message[]
+  sections      Section[]
+}
+
+model CoursesEnrolled {
+  id             String   @id @default(cuid())
+  studentId      String
+  courseId       String
+  FinalGrade     Float?
+  enrollmentDate DateTime @default(now())
+  sectionId      String
+  course         Course   @relation(fields: [courseId], references: [id])
+  section        Section  @relation(fields: [sectionId], references: [id])
+  student        Student  @relation(fields: [studentId], references: [id])
+
+  @@unique([studentId, sectionId])
+  @@index([studentId, courseId, sectionId])
+  @@index([studentId])
+  @@index([sectionId])
+  @@index([courseId])
+}
+
+model CourseAssignment {
+  id          String       @id @default(cuid())
   title       String
-  url         String
   description String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  dueDate     DateTime
+  courseId    String
+  course      Course       @relation(fields: [courseId], references: [id])
+  submissions Submission[]
 }
+
+model Submission {
+  id             String           @id @default(cuid())
+  submissionDate DateTime         @default(now())
+  status         SubmissionStatus @default(Submitted)
+  grade          Int?
+  content        String?
+  studentId      String
+  assignmentId   String
+  assignment     CourseAssignment @relation(fields: [assignmentId], references: [id])
+  student        Student          @relation(fields: [studentId], references: [id])
+
+  @@unique([studentId, assignmentId])
+  @@index([studentId])
+  @@index([assignmentId])
+}
+
+model Message {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  DateCreated DateTime @default(now())
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id])
+}
+
+model Section {
+  id           String            @id @default(cuid())
+  semester     Semester
+  name         String
+  code         String
+  year         Int
+  courseID     String
+  instructorId String
+  enrollments  CoursesEnrolled[]
+  course       Course            @relation(fields: [courseID], references: [id])
+  instructor   Instructor        @relation(fields: [instructorId], references: [id])
+
+  @@unique([courseID, year, semester, code])
+}
+
 enum Role {
   Student
   Admin
@@ -36,122 +142,4 @@ enum Semester {
 enum SubmissionStatus {
   Submitted
   Graded
-}
-
-//The student field in your User table is just a convenient way to tell Prisma to use the userID 
-// to go look in the Student table and find the matching record.
-model Users{
-  user_id        String   @id @default(cuid())
-  bio       String?
-  email     String  @unique
-  password  String
-  name      String?
-  lastname  String?
-  role      Role     @default(Student)
-  student   Student? // one-to-one relation with Student
-  Instructor Instructor? // one-to-one relation with Instructor
-  Admin     Admin? // one-to-one relation with Admin
-}
-model Student {
-  id            String    @id @default(cuid())
-  userId       String    @unique // foreign key to Users
-  user         Users     @relation(fields: [userId], references: [user_id]) // relation to Users
-  emailVerified DateTime?
-  major        String?
-  enrollments   CoursesEnrolled[]  // many students can enroll in many courses
-  submissions Submission[] // one student can have many submissions
-  
-}
-
-model Instructor {
-  id            String    @id @default(cuid())
-  userId       String    @unique // foreign key to Users
-  user         Users     @relation(fields: [userId], references: [user_id]) // relation to Users
-  department   String?
-  office       String?
-  sections     Section[]  // one-to-many relation with Section
-}
-
-model Admin {
-  id            String    @id @default(cuid())
-  userId       String    @unique // foreign key to Users
-  user         Users     @relation(fields: [userId], references: [user_id]) // relation to Users
-}
-
-model Course {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  credits     Int
-  code        String   @unique
-  assignments CourseAssignment[] // one course has many assignments
-  announcements Message[] // one course has many announcements
-  sections    Section[] // one course has many sections
-  enrollments CoursesEnrolled[] // many students can enroll in many courses
-  }
-
-model CoursesEnrolled {
-  id          String   @id @default(cuid())
-  studentId   String
-  courseId    String
-  FinalGrade      Float?
-  enrollmentDate DateTime @default(now())
-  student     Student   @relation(fields: [studentId], references: [id])
-  course      Course    @relation(fields: [courseId], references: [id])
-  sectionId      String
-  section   Section @relation(fields: [sectionId], references: [id])
-  @@unique([studentId, sectionId])
-  @@index([studentId, courseId, sectionId])
-  @@index([studentId])
-  @@index([sectionId])
-  @@index([courseId])
-}
-
-model CourseAssignment {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  dueDate     DateTime
-  courseId    String //course foreign key
-  course      Course   @relation(fields: [courseId], references: [id])
-  submissions  Submission[] // one-to-many relation with Submission
-}
-
-
-model Submission {
-  id             String   @id @default(cuid())
-  submissionDate DateTime @default(now())
-  status         SubmissionStatus @default(Submitted)
-  grade          Int?
-  content        String? 
-  student   Student @relation(fields: [studentId], references: [id])
-  studentId String
-  assignment   CourseAssignment @relation(fields: [assignmentId], references: [id])
-  assignmentId String
-  @@unique([studentId, assignmentId])
-  @@index([studentId])
-  @@index([assignmentId])
-}
-
-model Message {
-  id        String   @id @default(cuid())
-  title     String
-  content   String
-  DateCreated DateTime @default(now())
-  courseId  String
-  course    Course   @relation(fields: [courseId], references: [id])
-}
-
-model Section{
-  id        String   @id @default(cuid())
-  semester  Semester
-  name      String
-  code      String
-  year      Int
-  courseID  String
-  course    Course   @relation(fields: [courseID], references: [id])
-  enrollments  CoursesEnrolled[] // many students can enroll in many courses
-  instructorId String
-  instructor   Instructor @relation(fields: [instructorId], references: [id])
-  @@unique([courseID, year, semester, code])
 }
