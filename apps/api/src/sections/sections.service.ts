@@ -1,6 +1,6 @@
 import {Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service'
-import { Section,Semester} from '@repo/database'
+import { Section} from '@repo/database'
 
 @Injectable()
 export class SectionsService {
