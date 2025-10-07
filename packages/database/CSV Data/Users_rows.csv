@@ -1,0 +1,11 @@
+user_id,bio,email,password,name,lastname,role
+cmfuep2xz0000tnfba016r27j,Computer Science student passionate about machine learning and software development.,john.smith@university.edu,$2a$10$hashedpassword1,John,Smith,Student
+cmfuep30u0001tnfb0rd2prhe,Mathematics major with interests in data analysis and statistics.,emily.johnson@university.edu,$2a$10$hashedpassword2,Emily,Johnson,Student
+cmfuep32n0002tnfbk64qrwcb,Engineering student focusing on robotics and automation systems.,michael.brown@university.edu,$2a$10$hashedpassword3,Michael,Brown,Student
+cmfuep34e0003tnfbu1mld4p5,Psychology major interested in cognitive behavioral research.,sarah.davis@university.edu,$2a$10$hashedpassword4,Sarah,Davis,Student
+cmfuep36e0004tnfbbtrdsfvt,Business student with focus on entrepreneurship and innovation.,alex.wilson@university.edu,$2a$10$hashedpassword5,Alex,Wilson,Student
+cmfuep3850005tnfbw16r6q06,Professor of Computer Science with 15 years of experience in software engineering and algorithms.,dr.thompson@university.edu,$2a$10$hashedpassword6,Robert,Thompson,Instructor
+cmfuep39v0006tnfbmwx08qew,Associate Professor of Mathematics specializing in applied mathematics and statistics.,dr.garcia@university.edu,$2a$10$hashedpassword7,Maria,Garcia,Instructor
+cmfuep3bl0007tnfbkb8tsihx,Assistant Professor of Psychology with research focus on developmental psychology.,prof.lee@university.edu,$2a$10$hashedpassword8,David,Lee,Instructor
+cmfuep3dc0008tnfbe9ewityq,Academic Administrator overseeing student enrollment and course management.,admin.jones@university.edu,$2a$10$hashedpassword9,Jennifer,Jones,Admin
+cmfuep3f30009tnfbzoqb5bx5,System Administrator managing academic technology infrastructure.,admin.white@university.edu,$2a$10$hashedpassword10,Thomas,White,Admin

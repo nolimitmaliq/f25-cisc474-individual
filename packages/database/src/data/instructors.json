@@ -1,0 +1,17 @@
+[
+  {
+    "email": "dr.thompson@university.edu",
+    "department": "Computer Science",
+    "office": "Engineering Building 301"
+  },
+  {
+    "email": "dr.garcia@university.edu",
+    "department": "Mathematics",
+    "office": "Mathematics Building 205"
+  },
+  {
+    "email": "prof.lee@university.edu",
+    "department": "Psychology",
+    "office": "Liberal Arts Building 150"
+  }
+]

@@ -1,72 +1,71 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import './Style/HomePage.css';
 
 export default function HomePage() {
-  const [role, setRole] = useState("Student");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleLogin = () => {
-    // In a real application, you would handle authentication here
-    alert(`Logging in as ${role} with email: ${email}`);
-  };
+  const router = useRouter();
+
+  const navigationItems = [
+    { name: "About", href: "#about" },
+    { name: "Contact Us", href: "#contact" }
+  ];
+
+  const handleLoginClick = () => {
+    router.push("/login");
+};
 
   return (
-    <main>
-      <div>
-        <h1>
-          LMS Login
-        </h1>
-        <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
-          <div>
-            <label>
-              User Role
-            </label>
-            <select
-              id="role-select"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className=""
-            >
-              <option>Student</option>
-              <option>Instructor</option>
-              <option>Admin</option>
-            </select>
+    <>
+      <div className="container">
+        <nav className="navbar">
+          <div className="nav-content">
+            <div className="nav-row">
+              {/* Logo */}
+              <div className="logo-section">
+                <div className="logo-icon">
+                  <span style={{color: 'white', fontWeight: 'bold', fontSize: '0.875rem'}}>L</span>
+                </div>
+                <span className="logo-text">LearnHub</span>
+              </div>
+              <div className="desktop-nav">
+                <div className="nav-items">
+                  {navigationItems.map((item) => (
+                    <a key={item.name} href={item.href} className="nav-link">
+                      {item.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="auth-buttons">
+                <button className="login-btn" onClick={handleLoginClick}>Log in</button>
+                <button className="signup-btn">Sign up</button>
+              </div>
+            </div>
           </div>
-          <div>
-            <label>
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email...."
-              required
-            />
+        </nav>
+        <main>
+          <div className="main-content">
+            <div className="hero-grid">
+              <div className="hero-content">
+                <h1 className="hero-title">
+                  Learning Hub
+                  <br />
+                  <span className="hero-title-accent">Achieve everything.</span>
+                </h1>
+                
+                <p className="hero-description">
+                  Transform your learning journey with our comprehensive LMS platform. 
+                  Access courses, track progress, and connect with learners worldwide.
+                </p>
+              </div>
+            </div>
           </div>
-          <div>
-            <label>
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password...."
-              required
-            />
-          </div>
-          <button
-            type="submit"
-          >
-            Login
-          </button>
-        </form>
+        </main>
       </div>
-    </main>
+    </>
   );
 }
-
