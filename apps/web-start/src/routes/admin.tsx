@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState} from 'react';
 import { useNavigate } from '@tanstack/react-router';
+import { useQuery } from '@tanstack/react-query';
+import { backendFetcher } from '../integrations/fetcher';
 
 export const Route = createFileRoute('/admin')({
   component: Admin,
@@ -23,6 +25,18 @@ function Admin() {
             setActiveTab(tab);
         }
     };
+
+    const { isPending, isError, data, error } = useQuery({
+        queryKey: ['admins'],
+        queryFn: backendFetcher('/admins'),
+      });
+    
+      if(isPending){
+        return <span>Loading...</span>
+      }
+      if(isError){
+        return <span>Error is {error.message}</span>
+      }
 
     const renderTabContent = () => {
         switch(activeTab) {
@@ -64,7 +78,7 @@ function Admin() {
                 return (
                     <div style={{ padding: "2rem" }}>
                         <h2>Admin Profile</h2>
-                        <p>Manage your admin profile...</p>
+                        <p>{JSON.stringify(data)}</p>
                     </div>
                 );
             default:
