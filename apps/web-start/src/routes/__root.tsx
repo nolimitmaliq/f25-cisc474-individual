@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
-import type { ReactNode } from 'react';
+//import type { ReactNode } from 'react';
 import {
-  Outlet,
+  //Outlet,
   createRootRouteWithContext,
   HeadContent,
   Scripts,
