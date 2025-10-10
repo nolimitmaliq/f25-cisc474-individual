@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState} from 'react';
 import { useNavigate } from '@tanstack/react-router';
+import { useQuery } from '@tanstack/react-query';
+import { backendFetcher } from '../integrations/fetcher';
 
 export const Route = createFileRoute('/instructor')({
   component: Instructor,
@@ -20,6 +22,17 @@ const [activeTab, setActiveTab] = useState("Create Assignment");
             setActiveTab(tab);
         }
     };
+    const { isPending, isError, data, error } = useQuery({
+    queryKey: ['instructors'],
+    queryFn: backendFetcher('/instructors'),
+  });
+
+  if(isPending){
+    return <span>Loading...</span>
+  }
+  if(isError){
+    return <span>Error is {error.message}</span>
+  }
     
     const renderTabContent = () => {
         switch (activeTab) {
@@ -119,9 +132,7 @@ const [activeTab, setActiveTab] = useState("Create Assignment");
                         <h2>Instructor Profile</h2>
                         <div style={{ border: "1px solid #ddd", padding: "1.5rem", borderRadius: "8px", backgroundColor: "white" }}>
                             <div style={{ display: "grid", gap: "1rem" }}>
-                                <p><strong>Name:</strong> Dr. Sarah Johnson</p>
-                                <p><strong>Employee ID:</strong> INS001</p>
-                                <p><strong>Email:</strong> sarah.johnson@university.edu</p>
+                                {JSON.stringify(data)}
                             </div>
                             <button
                                 style={{

@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState} from 'react';
 import { useNavigate } from '@tanstack/react-router';
+import { useQuery } from '@tanstack/react-query';
+import { backendFetcher } from '../integrations/fetcher';
 
 export const Route = createFileRoute('/student')({
   component: Student,
@@ -13,7 +15,17 @@ const [activeTab, setActiveTab] = useState("Courses");
     const courseDescription = 
     ["Introduction to Calculus - Fall 2025", "Multivariable Calculus", "Applied Statistcs"]
 
+    const { isPending, isError, data, error } = useQuery({
+    queryKey: ['students'],
+    queryFn: backendFetcher('/students'),
+  });
 
+  if(isPending){
+    return <span>Loading...</span>
+  }
+  if(isError){
+    return <span>Error is {error.message}</span>
+  }
     const handleTabClick = (tab: string) => {
         if (tab === "Sign Out") {
             // Navigate back to login page
@@ -84,12 +96,14 @@ const [activeTab, setActiveTab] = useState("Courses");
                     <div>
                         <h2>Student Profile</h2>
                         <div style={{ border: "1px solid #ddd", padding: "1.5rem", borderRadius: "8px" }}>
-                            <p><strong>Name:</strong> John Doe</p>
+                            {/* <p><strong>Name:</strong> John Doe</p>
                             <p><strong>Student ID:</strong> STU001</p>
                             <p><strong>Email:</strong> john.doe@university.edu</p>
                             <p><strong>Major:</strong> Computer Science</p>
                             <p><strong>Year:</strong> Sophomore</p>
-                            <p><strong>GPA:</strong> 3.75</p>
+                            <p><strong>GPA:</strong> 3.75</p> */}
+
+                            Students: {JSON.stringify(data)}
                         </div>
                     </div>
                 );
@@ -97,6 +111,8 @@ const [activeTab, setActiveTab] = useState("Courses");
                 return <div>Select a tab to view content</div>;
         }
     };
+
+    
 
     return (
         <div style={{ minHeight: "100vh", backgroundColor: "#f5f5f5" }}>
