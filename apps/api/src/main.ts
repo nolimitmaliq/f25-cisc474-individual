@@ -6,7 +6,10 @@ async function bootstrap() {
   console.log('Working directory:', process.cwd());
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: `${process.env.VITE_FRONTEND_URL}`,
+    origin: [
+      process.env.VITE_FRONTEND_URL,
+    process.env.VITE_FRONTEND_URL_localhost,
+  ].filter(Boolean), 
     methods:'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials:true
   })
