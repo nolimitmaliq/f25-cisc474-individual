@@ -19,5 +19,6 @@ export function backendFetcher<T>(endpoint: string): () => Promise<T> {
       }
       return res.json();
     });
+    // hello
   };
 }
