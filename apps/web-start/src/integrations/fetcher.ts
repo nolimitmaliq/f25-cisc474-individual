@@ -3,7 +3,7 @@ export function backendFetcher<T>(endpoint: string): () => Promise<T> {
   return () => {
     const baseUrl = import.meta.env.DEV 
       ? 'http://localhost:3000'  // Development
-      : import.meta.env.VITE_BACKEND_URL; // Production
+      : 'https://individual-webapp.onrender.com'; // Production
     
     const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
     
