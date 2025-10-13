@@ -21,7 +21,7 @@ async function bootstrap() {
     // Production CORS
     console.log('Running in PRODUCTION mode');
     app.enableCors({
-      origin: "https://individual-project.maliqadewale.workers.dev", // Your deployed frontend
+      origin: process.env.VITE_FRONTEND_URL, // Your deployed frontend
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
       credentials: true,
       allowedHeaders: ['Content-Type', 'Authorization'],
@@ -30,7 +30,7 @@ async function bootstrap() {
   const port = process.env.PORT || 3000;
   const host = process.env.HOST || undefined;
   console.log(`Starting server on port ${port}`);
-  
+
   await app.listen(port, host);
 }
 

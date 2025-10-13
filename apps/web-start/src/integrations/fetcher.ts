@@ -4,9 +4,9 @@ export function backendFetcher<T>(endpoint: string): () => Promise<T> {
     const baseUrl = import.meta.env.DEV 
       ? 'http://localhost:3000'  // Development
       : 'https://individual-webapp.onrender.com'; // Production
-    
+
     const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-    
+
     return fetch(`${baseUrl}${normalizedEndpoint}`, {
       credentials: 'include',
       headers: {
@@ -19,6 +19,6 @@ export function backendFetcher<T>(endpoint: string): () => Promise<T> {
       }
       return res.json();
     });
-    // hello
+
   };
 }
