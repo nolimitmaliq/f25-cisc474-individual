@@ -21,7 +21,7 @@ async function bootstrap() {
     // Production CORS
     console.log('Running in PRODUCTION mode');
     app.enableCors({
-      origin: process.env.VITE_FRONTEND_URL, // Your deployed frontend
+      origin: process.env.FRONTEND_URL, // Your deployed frontend
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
       credentials: true,
       allowedHeaders: ['Content-Type', 'Authorization'],
