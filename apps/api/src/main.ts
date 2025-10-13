@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { METHODS } from 'node:http';
 
 async function bootstrap() {
   console.log('DATABASE_URL loaded:', !!process.env.DATABASE_URL);
@@ -8,11 +9,21 @@ async function bootstrap() {
 
   const isDevelopment = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
 
+  // app.enableCors({
+  //   origin:[
+  //     process.env.FRONTEND_URL_LocalHost,
+  //     process.env.FRONTEND_URL
+  //   ],
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  //   credentials: true,
+  //   allowedHeaders: ['Content-Type', 'Authorization']
+  // })
+
   if (isDevelopment) {
     // Local development CORS
     console.log('Running in DEVELOPMENT mode');
     app.enableCors({
-      origin: 'http://localhost:3001', // Your local frontend
+      origin: process.env.FRONTEND_URL_LocalHost, // Your local frontend
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
       credentials: true,
       allowedHeaders: ['Content-Type', 'Authorization'],
@@ -21,7 +32,7 @@ async function bootstrap() {
     // Production CORS
     console.log('Running in PRODUCTION mode');
     app.enableCors({
-      origin: "https://individual-project.maliqadewale.workers.dev", // Your deployed frontend
+      origin: process.env.FRONTEND_URL, // Your deployed frontend
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
       credentials: true,
       allowedHeaders: ['Content-Type', 'Authorization'],
