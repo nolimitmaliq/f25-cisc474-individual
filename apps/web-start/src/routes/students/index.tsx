@@ -6,7 +6,6 @@ import { backendFetcher } from '../../integrations/fetcher';
 import type { StudentRef } from '@repo/api';
 
 // 1. This query fetches ALL students for the list
-// Note: Your backend should send an array of StudentRef, not StudentOut
 const studentsListQueryOptions = queryOptions({
   queryKey: ['students', 'list'], // A key for the whole list
   queryFn: backendFetcher<Array<StudentRef>>('/students'), // Fetch ALL students
@@ -31,7 +30,6 @@ function StudentListPage() {
       <div style={{ display: 'grid', gap: '1rem', maxWidth: '600px' }}>
         {students.map((student) => (
           
-          // 5. THIS IS THE CONNECTION!
           // This Link connects this page to your $studentId.tsx file
           <Link
             key={student.id}

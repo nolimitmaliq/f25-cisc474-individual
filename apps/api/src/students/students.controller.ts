@@ -1,15 +1,7 @@
-import {
-    Controller,
-      Get,
-        Post,
-          Body,
-            Patch,
-              Param,
-                Delete,
-                } from '@nestjs/common';
-import { StudentsService} from './students.service';
+import {Controller,Get,Post,Body,Patch,Param,Delete} from '@nestjs/common';
+import { StudentsService } from './students.service';
 // import { Student} from '@repo/database';
-import type { StudentOut } from '@repo/api';
+import type { StudentOut } from '@repo/api/index';
 
 @Controller('students')
 export class StudentsController {
