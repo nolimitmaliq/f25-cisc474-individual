@@ -1,7 +1,5 @@
 import { z } from 'zod';
-import { Pagination } from '../../queries'; // Assuming this is in './queries'
-// [cite: 1]
-// --- Enums (From schema.prisma) ---
+import { Pagination } from '../../queries';
 
 export const SubmissionStatus = z.enum([
   'Submitted',
@@ -74,9 +72,3 @@ export const StudentUpdateIn = z.object({
 });
 export type StudentUpdateIn = z.infer<typeof StudentUpdateIn>;
 
-
-export const StudentListFilter = Pagination.extend({
-  major: z.string().optional(), // [cite: 5]
-  nameLike: z.string().optional(), // [cite: 3]
-});
-export type StudentListFilter = z.infer<typeof StudentListFilter>;

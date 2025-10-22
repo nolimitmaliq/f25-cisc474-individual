@@ -8,19 +8,20 @@ import {
                 Delete,
                 } from '@nestjs/common';
 import { StudentsService} from './students.service';
-import { Student} from '@repo/database';
+// import { Student} from '@repo/database';
+import type { StudentOut } from '@repo/api';
 
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
   
   @Get()
-  findAll(): Promise<Student[]> {
+  findAll(): Promise<StudentOut[]> {
     return this.studentsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Student> {
+  findOne(@Param('id') id: string): Promise<StudentOut> {
     return this.studentsService.findOne(id);
   }
 }

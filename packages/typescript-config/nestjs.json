@@ -7,7 +7,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": false,
     "incremental": true,
-    "module": "commonjs",
+    "module": "commonjs", 
     "noFallthroughCasesInSwitch": false,
     "noImplicitAny": false,
     "removeComments": true,
