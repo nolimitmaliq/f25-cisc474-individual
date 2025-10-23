@@ -33,8 +33,8 @@ function StudentListPage() {
           // This Link connects this page to your $studentId.tsx file
           <Link
             key={student.id}
-            to="/students/$studentId"
-            params={{ studentId: student.id }} // Pass the student's ID
+            to="/students/$id"
+            params={{ id: student.id }} // Pass the student's ID
             style={{
               display: 'block',
               padding: '1rem',
