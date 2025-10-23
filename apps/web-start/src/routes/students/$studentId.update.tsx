@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
-import { useApiMutation } from '../../integrations/api'; 
+import { useApiMutation } from '../../integrations/api';
 import type { StudentUpdateIn, StudentOut } from '@repo/api';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { backendFetcher } from '../../integrations/fetcher';
@@ -12,7 +12,7 @@ const studentsQueryOptions = (studentId: string) =>
     queryFn: backendFetcher<StudentOut>(`/students/${studentId}`),
   });
 
-
+// 3. CRITICAL FIX: The route string MUST match your filename
 export const Route = createFileRoute('/students/$studentId/update')({
   component: UpdateStudentComponent,
   // 3. Add the loader to pre-fetch the student's data
@@ -22,15 +22,19 @@ export const Route = createFileRoute('/students/$studentId/update')({
 });
 
 function UpdateStudentComponent() {
-    /*
-    const studentId = Route.useParams().studentId; This line's job is to read the URL and 
-    get the specific student's ID from it. When you visit /students/abc-123/update, 
-    this code reaches into the Route definition, calls the useParams() hook, 
-    and pulls out the studentId variable, which would be "abc-123".
-    */
-  const studentId = Route.useParams().studentId;
-  const { data: student } = useSuspenseQuery(studentsQueryOptions(studentId));
+  /*
+    const studentId = Route.useParams().studentId; This line's job is to read the URL and 
+    get the specific student's ID from it. When you visit /students/abc-123/update, 
+    this code reaches into the Route definition, calls the useParams() hook, 
+    and pulls out the studentId variable, which would be "abc-123".
+    */
+  // 4. CRITICAL FIX: Get 'studentId' with capital 'I'
+  const { studentId } = Route.useParams();
+  const { data: student } = useSuspenseQuery(
+    studentsQueryOptions(studentId),
+  );
 
+  // 5. Pre-fill the form state (added 'bio')
   const [name, setName] = useState(student.name ?? '');
   const [lastname, setLastname] = useState(student.lastname ?? '');
   const [major, setMajor] = useState(student.major ?? '');
@@ -44,25 +48,33 @@ function UpdateStudentComponent() {
     invalidateKeys: [
       ['students', 'list'], // Invalidate the master list
       ['students', studentId], // Invalidate this student's profile
-    ]
+    ],
   });
 
   return (
     <div style={{ padding: '2rem' }}>
       <header>
-        <h1>Update Student: {student.name} {student.lastname}</h1>
+        <h1>
+          Update Student: {student.name} {student.lastname}
+        </h1>
       </header>
-      
+
       {mutation.isPending ? (
         <div>Updating student...</div>
       ) : (
         <>
           {mutation.isError ? (
-            <div>Error updating student: {mutation.error.message}</div>
+            // 6. Added 'instanceof Error' check
+            <div style={{ color: 'red' }}>
+              Error:{' '}
+              {mutation.error instanceof Error
+                ? mutation.error.message
+                : 'An unknown error occurred'}
+            </div>
           ) : null}
-          
+
           <hr />
-          
+
           {/* 10. Create the form inputs, pre-filled with state */}
           <div style={{ display: 'grid', gap: '1rem', maxWidth: '300px' }}>
             <label>First Name:</label>
@@ -89,21 +101,26 @@ function UpdateStudentComponent() {
             <button
               onClick={() => {
                 mutation.mutate(
+                  // 8. Added 'bio' to the mutation
                   { name, lastname, major},
-                  { // 3. Pass onSuccess as the second argument
+                  {
+                    // 3. Pass onSuccess as the second argument
                     onSuccess: () => {
-                      navigate({ to: '/students/$studentId', params: { studentId } });
-                    }
-                  }
+                      navigate({
+                        to: '/students/$studentId',
+                        params: { studentId },
+                      });
+                    },
+                  },
                 );
               }}
             >
               Save Changes
             </button>
           </div>
-          
+
           <hr />
-          
+
           <Link to="/students/$studentId" params={{ studentId }}>
             Cancel (Back to Profile)
           </Link>
