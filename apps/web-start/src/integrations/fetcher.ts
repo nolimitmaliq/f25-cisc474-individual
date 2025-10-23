@@ -28,7 +28,10 @@ export async function mutateBackend<T>(
   method: string,
   body?: any,
 ): Promise<T> {
-  const response = await fetch(import.meta.env.VITE_BACKEND_URL + endpoint, {
+   const baseUrl = import.meta.env.DEV 
+      ? 'http://localhost:3000'  // Development
+      : import.meta.env.VITE_BACKEND_URL;
+  const response = await fetch(baseUrl + endpoint, {
     method,
     headers: {
       'Content-Type': 'application/json',
