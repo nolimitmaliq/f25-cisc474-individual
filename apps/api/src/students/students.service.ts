@@ -1,7 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service'
 import { Student} from '@repo/database';
-import type { StudentOut } from '@repo/api/index';
+import type { StudentOut,StudentCreateIn,StudentUpdateIn } from '@repo/api/index';
 
 @Injectable()
 export class StudentsService {
@@ -30,6 +30,41 @@ export class StudentsService {
       })),
     };
   }
+  async create(createStudentDto: StudentCreateIn): Promise<StudentOut> {
+        
+        const existingUser = await this.prisma.users.findUnique({
+            where: { email: createStudentDto.email },
+        });
+
+        if (existingUser) {
+            throw new ConflictException('A user with this email already exists');
+        }
+        const newStudent = await this.prisma.student.create({
+                data: {
+                    major: createStudentDto.major,
+                    user: {
+                        create: {
+                            email: createStudentDto.email,
+                            password: createStudentDto.password,
+                            name: createStudentDto.name,
+                            lastname: createStudentDto.lastname,
+                            role: 'Student',
+                        },
+                    },
+                },
+                include: {
+                    user: true,
+                    enrollments: {
+                        include: {
+                            course: true,
+                        },
+                    },
+                    submissions: true,
+                },
+            });
+            return this.mapStudentToDto(newStudent);
+
+    }
     async findOne(id: string): Promise<StudentOut> {
     const student = await this.prisma.student.findUnique({
       where: { id: id },

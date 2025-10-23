@@ -3,8 +3,10 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { backendFetcher } from '../../integrations/fetcher';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
-import type { StudentOut } from '@repo/api';
+import type { StudentOut} from '@repo/api';
 import { useState } from 'react';
+import { useApiMutation } from '../../integrations/api'; 
+
 
 // 1. This is the "recipe" to fetch ONE student's full profile
 const studentsQueryOptions = (studentId: string) =>
@@ -38,16 +40,24 @@ export const Route = createFileRoute('/students/$studentId')({
 function StudentDashboardComponent() {
   const studentId = Route.useParams().studentId;
   const { data: student } = useSuspenseQuery(studentsQueryOptions(studentId));
+  
+  const deleteMutation = useApiMutation<Record<string, never>, { message: string }>({
+    endpoint: () => ({
+      path: `/students/${studentId}`,
+      method: 'DELETE',
+    }),
+    invalidateKeys: [
+      ['students', 'list'], // Invalidate the master list
+    ]
+  });
 
-  // --- All your State and Logic from the old file ---
-  const [activeTab, setActiveTab] = useState("Profile"); // Default to Profile
+  const [activeTab, setActiveTab] = useState("Profile"); 
   const navigate = useNavigate();
   const tabs = ["Profile", "Courses", "Submissions", "Notifications", "Sign Out"];
   
 
   const handleTabClick = (tab: string) => {
     if (tab === "Sign Out") {
-      // Navigate back to login page
       navigate({ to: '/' });
     } else {
       setActiveTab(tab);
@@ -65,6 +75,32 @@ function StudentDashboardComponent() {
               <p><strong>Email:</strong> {student.email}</p>
               <p><strong>Major:</strong> {student.major ?? 'N/A'}</p>
               <p><strong>Student ID:</strong> {student.id}</p>
+            </div>
+            <div style={{ marginTop: '2rem', border: '1px solid red', padding: '1rem', borderRadius: '8px' }}>
+              <h3>Danger Zone</h3>
+              <p>Deleting this student is permanent and cannot be undone.</p>
+              <button
+                style={{ backgroundColor: '#e74c3c', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer' }}
+                onClick={() => {
+                  if (window.confirm("Are you sure you want to permanently delete this student?")) {
+                    deleteMutation.mutate(
+                      {}, // No variables to pass
+                      {
+                        onSuccess: () => {
+                          navigate({ to: '/students' });
+                        }
+                      }
+                    );
+                  }
+                }}
+              >
+                {deleteMutation.isPending ? 'Deleting...' : 'Delete Student'}
+              </button>
+              {deleteMutation.isError && (
+                <div style={{ color: 'red', marginTop: '0.5rem' }}>
+                  Error: {deleteMutation.error.message}
+                </div>
+              )}
             </div>
           </div>
         );
@@ -186,7 +222,6 @@ function StudentDashboardComponent() {
         </div>
       </nav>
       
-      {/* Link back to the list page */}
       <Link to="/students" style={{padding: '1rem', display: 'block'}}>
         &larr; Back to Student List
       </Link>

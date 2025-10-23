@@ -16,6 +16,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as StudentsIndexRouteImport } from './routes/students/index'
 import { Route as StudentsCreateRouteImport } from './routes/students/create'
 import { Route as StudentsStudentIdRouteImport } from './routes/students/$studentId'
+import { Route as StudentsStudentIdUpdateRouteImport } from './routes/students/$studentId.update'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -52,24 +53,31 @@ const StudentsStudentIdRoute = StudentsStudentIdRouteImport.update({
   path: '/students/$studentId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudentsStudentIdUpdateRoute = StudentsStudentIdUpdateRouteImport.update({
+  id: '/update',
+  path: '/update',
+  getParentRoute: () => StudentsStudentIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/instructor': typeof InstructorRoute
   '/login': typeof LoginRoute
-  '/students/$studentId': typeof StudentsStudentIdRoute
+  '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/create': typeof StudentsCreateRoute
   '/students': typeof StudentsIndexRoute
+  '/students/$studentId/update': typeof StudentsStudentIdUpdateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/instructor': typeof InstructorRoute
   '/login': typeof LoginRoute
-  '/students/$studentId': typeof StudentsStudentIdRoute
+  '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/create': typeof StudentsCreateRoute
   '/students': typeof StudentsIndexRoute
+  '/students/$studentId/update': typeof StudentsStudentIdUpdateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,9 +85,10 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/instructor': typeof InstructorRoute
   '/login': typeof LoginRoute
-  '/students/$studentId': typeof StudentsStudentIdRoute
+  '/students/$studentId': typeof StudentsStudentIdRouteWithChildren
   '/students/create': typeof StudentsCreateRoute
   '/students/': typeof StudentsIndexRoute
+  '/students/$studentId/update': typeof StudentsStudentIdUpdateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/students/$studentId'
     | '/students/create'
     | '/students'
+    | '/students/$studentId/update'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/students/$studentId'
     | '/students/create'
     | '/students'
+    | '/students/$studentId/update'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/students/$studentId'
     | '/students/create'
     | '/students/'
+    | '/students/$studentId/update'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -116,7 +128,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   InstructorRoute: typeof InstructorRoute
   LoginRoute: typeof LoginRoute
-  StudentsStudentIdRoute: typeof StudentsStudentIdRoute
+  StudentsStudentIdRoute: typeof StudentsStudentIdRouteWithChildren
   StudentsCreateRoute: typeof StudentsCreateRoute
   StudentsIndexRoute: typeof StudentsIndexRoute
 }
@@ -172,15 +184,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudentsStudentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/students/$studentId/update': {
+      id: '/students/$studentId/update'
+      path: '/update'
+      fullPath: '/students/$studentId/update'
+      preLoaderRoute: typeof StudentsStudentIdUpdateRouteImport
+      parentRoute: typeof StudentsStudentIdRoute
+    }
   }
 }
+
+interface StudentsStudentIdRouteChildren {
+  StudentsStudentIdUpdateRoute: typeof StudentsStudentIdUpdateRoute
+}
+
+const StudentsStudentIdRouteChildren: StudentsStudentIdRouteChildren = {
+  StudentsStudentIdUpdateRoute: StudentsStudentIdUpdateRoute,
+}
+
+const StudentsStudentIdRouteWithChildren =
+  StudentsStudentIdRoute._addFileChildren(StudentsStudentIdRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   InstructorRoute: InstructorRoute,
   LoginRoute: LoginRoute,
-  StudentsStudentIdRoute: StudentsStudentIdRoute,
+  StudentsStudentIdRoute: StudentsStudentIdRouteWithChildren,
   StudentsCreateRoute: StudentsCreateRoute,
   StudentsIndexRoute: StudentsIndexRoute,
 }

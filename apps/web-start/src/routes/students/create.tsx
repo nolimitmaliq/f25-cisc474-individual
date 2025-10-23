@@ -21,7 +21,7 @@ function RouteComponent(){
       path: '/students', // Your backend route for creating a student
       method: 'POST',
     }),
-    invalidateKeys: [['students', 'list']],
+    invalidateKeys: [['students', 'list']], // this is how the cache is updating by grabbing the key
   });
 
    return (

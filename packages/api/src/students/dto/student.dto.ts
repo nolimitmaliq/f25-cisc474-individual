@@ -32,10 +32,10 @@ export const EnrollmentRef = z.object({
 export type EnrollmentRef = z.infer<typeof EnrollmentRef>;
 
 export const StudentRef = z.object({
-  id: z.string().cuid(), // Student ID [cite: 1]
-  name: z.string().nullable(), // [cite: 3]
-  lastname: z.string().nullable(), // [cite: 3]
-  email: z.string().email(), // [cite: 2]
+  id: z.string().cuid(), 
+  name: z.string().nullable(), 
+  lastname: z.string().nullable(), 
+  email: z.string().email(),
 });
 export type StudentRef = z.infer<typeof StudentRef>;
 
