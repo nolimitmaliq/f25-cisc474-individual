@@ -99,4 +99,48 @@ export class StudentsService {
     });
     return students.map(this.mapStudentToDto);
   }
+
+  async update(id: string,updateStudentDto: StudentUpdateIn,): Promise<StudentOut> {
+    const updatedStudent = await this.prisma.student.update({
+        where: { id: id },
+        data: {
+          major: updateStudentDto.major,
+          user: {
+            update: {
+              name: updateStudentDto.name,
+              lastname: updateStudentDto.lastname,
+              bio: updateStudentDto.bio,
+            },
+          },
+        },
+        include: {
+          user: true,
+          enrollments: { include: { course: true } },
+          submissions: true,
+        },
+      });
+
+      return this.mapStudentToDto(updatedStudent);
+  }
+  async delete(id: string): Promise<{ message: string }> {
+    // 1. First, find the student to get their associated userId
+    const student = await this.prisma.student.findUnique({
+      where: { id: id },
+      select: { userId: true }, // Only select the userId
+    });
+
+    if (!student) {
+      throw new NotFoundException(`Student with ID ${id} not found`);
+    }
+
+    // 2. Delete the Student record
+    await this.prisma.student.delete({
+        where: { id: id },
+    });
+    await this.prisma.users.delete({
+        where: { user_id: student.userId },
+  });
+
+      return { message: 'Student deleted successfully' };
+  }
 }
