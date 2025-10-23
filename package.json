@@ -31,13 +31,13 @@
     "node": ">=18"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.8.0",
     "@prisma/client": "latest",
     "dotenv": "^17.2.2"
   },
   "packageManager": "npm@10.9.0",
   "workspaces": [
     "apps/*",
-    "packages/*",
-    "database"
+    "packages/*"
   ]
 }

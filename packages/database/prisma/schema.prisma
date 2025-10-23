@@ -59,7 +59,7 @@ model Course {
   sections      Section[]
 }
 
-model CoursesEnrolled {
+model CoursesEnrolled { // bridge between Enrollment and Students
   id             String   @id @default(cuid())
   studentId      String
   courseId       String
