@@ -12,14 +12,27 @@ datasource db {
 model Users {
   user_id    String      @id @default(cuid())
   bio        String?
-  email      String      @unique
-  password   String
+  email      String?      @unique
+  password   String?
   name       String?
   lastname   String?
   role       Role        @default(Student)
   Admin      Admin?
   Instructor Instructor?
   student    Student?
+  authentications   Authentication[]
+}
+
+model Authentication {
+    id         String   @id @default(uuid())
+    userId     String
+    provider   String
+    providerId String
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    user       Users     @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+
+    @@index([provider, providerId])
 }
 
 model Student {
@@ -59,7 +72,7 @@ model Course {
   sections      Section[]
 }
 
-model CoursesEnrolled { // bridge between Enrollment and Students
+model CoursesEnrolled {
   id             String   @id @default(cuid())
   studentId      String
   courseId       String

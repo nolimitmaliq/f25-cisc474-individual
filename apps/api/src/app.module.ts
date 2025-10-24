@@ -14,11 +14,12 @@ import { CoursesEnrolledsModule } from './coursesenrolleds/coursesenrolleds.modu
 import { CourseassignmentsModule } from './courseassignments/courseassignments.module';
 import { SubmissionsModule } from './submissions/submissions.module';
 import { MessagesModule } from './messages/messages.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [LinksModule, UsersModule, CoursesModule, SectionsModule, 
     StudentsModule, InstructorsModule, AdminsModule, CoursesEnrolledsModule,
-  CourseassignmentsModule, SubmissionsModule, MessagesModule],
+  CourseassignmentsModule, SubmissionsModule, MessagesModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
