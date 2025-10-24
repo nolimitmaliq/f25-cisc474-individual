@@ -1,90 +1,52 @@
-// src/routes/students/$id.tsx
-
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
-// 1. ADDED: mutateBackend
-import { backendFetcher, mutateBackend } from '../../integrations/fetcher';
-// 2. ADDED: useMutation and useQueryClient
-import {
-  queryOptions,
-  useSuspenseQuery,
-  useMutation,
-  useQueryClient,
-} from '@tanstack/react-query';
-// 3. ADDED: StudentUpdateIn
+import { useApiQuery, useApiMutation } from '../../integrations/api';
 import type { StudentOut, StudentUpdateIn } from '@repo/api';
 import { useState } from 'react';
 
-// This is the "recipe" to fetch ONE student's full profile
-const studentsQueryOptions = (id: string) => // Changed to id
-  queryOptions({
-    queryKey: ['students', id], // Changed to id
-    queryFn: backendFetcher<StudentOut>(`/students/${id}`), // Changed to id
-  });
-
-/*
-
-  Analogy: The Smart Data Pantry
-  queryClient = The Pantry: It's the central place where all your data "jars" are stored.
-  queryKey = The Label: ['students', 'abc-123'] is the unique label on a jar.
-  queryFn = The Recipe: The backendFetcher function is the recipe for how to go to the store
-  (your API) and get the ingredients if the jar is empty.
-  In your loader code: queryClient.ensureQueryData(studentsQueryOptions(id)) // Changed to id
-
-  You are literally saying: "Hey Pantry (queryClient), I need the jar labeled ['students', 'abc-123'].
-  Go check if you have it. If you don't, or if it's old, use this recipe to fill it up right now.
-  Don't let my page render until that jar is full."
-
-  */
-
-// 4. Route string uses $id
 export const Route = createFileRoute('/students/$id')({
   component: StudentDashboardComponent,
-  // Loader uses id
-  loader: ({ context: { queryClient }, params: { id } }) => {
-    return queryClient.ensureQueryData(studentsQueryOptions(id));
-  },
 });
 
-// This is your FULL component
 function StudentDashboardComponent() {
-  // 5. Get 'id' from useParams
   const { id } = Route.useParams();
-  const { data: student } = useSuspenseQuery(studentsQueryOptions(id));
-
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(student.name ?? '');
-  const [lastname, setLastname] = useState(student.lastname ?? '');
-  const [major, setMajor] = useState(student.major ?? '');
+  // Fetch student data using useApiQuery for Auth0 authentication
+  const { data: student, isLoading, isError, error } = useApiQuery<StudentOut>(
+    ['students', id],
+    `/api/students/${id}`
+  );
 
-  // --- Delete Mutation ---
-  const deleteMutation = useMutation({
-    mutationFn: () =>
-      mutateBackend<{ message: string }>(`/students/${id}`, 'DELETE'),
-    onSuccess: () => {
-      // Invalidate the master list
-      queryClient.invalidateQueries({ queryKey: ['students', 'list'] });
-      // Navigate back to the student list
-      navigate({ to: '/students' });
-    },
+  const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [major, setMajor] = useState('');
+
+  // Update form fields when student data loads
+  useState(() => {
+    if (student) {
+      setName(student.name ?? '');
+      setLastname(student.lastname ?? '');
+      setMajor(student.major ?? '');
+    }
   });
 
-  // --- ADDED: Update Mutation ---
-  const updateMutation = useMutation({
-    mutationFn: (updatedStudentData: StudentUpdateIn) => {
-      return mutateBackend<StudentOut>(
-        `/students/${id}`,
-        'PATCH',
-        updatedStudentData,
-      );
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['students', 'list'] });
-      queryClient.invalidateQueries({ queryKey: ['students', id] });
-      setIsEditing(false); // Exit edit mode on success
-    },
+  // Update mutation using useApiMutation
+  const updateMutation = useApiMutation<StudentUpdateIn, StudentOut>({
+    endpoint: () => ({
+      path: `/api/students/${id}`,
+      method: 'PATCH',
+    }),
+    invalidateKeys: [['students', 'list'], ['students', id]],
+  });
+
+  // Delete mutation using useApiMutation
+  const deleteMutation = useApiMutation<Record<string, never>, { message: string }>({
+    endpoint: () => ({
+      path: `/api/students/${id}`,
+      method: 'DELETE',
+    }),
+    invalidateKeys: [['students', 'list']],
   });
 
   const [activeTab, setActiveTab] = useState('Profile');
@@ -95,30 +57,75 @@ function StudentDashboardComponent() {
       navigate({ to: '/' });
     } else {
       setActiveTab(tab);
-      // If switching tabs, always exit edit mode
       if (isEditing) {
         setIsEditing(false);
-        // Reset form fields to original values when cancelling
-        setName(student.name ?? '');
-        setLastname(student.lastname ?? '');
-        setMajor(student.major ?? '');
+        // Reset form fields when switching tabs
+        if (student) {
+          setName(student.name ?? '');
+          setLastname(student.lastname ?? '');
+          setMajor(student.major ?? '');
+        }
       }
     }
   };
 
-  // --- Function to handle saving changes ---
   const handleSaveChanges = () => {
-    updateMutation.mutate({ name, lastname, major });
+    updateMutation.mutate(
+      { name, lastname, major },
+      {
+        onSuccess: () => {
+          setIsEditing(false);
+        },
+      }
+    );
   };
 
-  // --- Function to handle cancelling edit ---
   const handleCancelEdit = () => {
     setIsEditing(false);
-    // Reset form fields to original values
-    setName(student.name ?? '');
-    setLastname(student.lastname ?? '');
-    setMajor(student.major ?? '');
+    // Reset form fields
+    if (student) {
+      setName(student.name ?? '');
+      setLastname(student.lastname ?? '');
+      setMajor(student.major ?? '');
+    }
   };
+
+  const handleDelete = () => {
+    if (window.confirm('Are you sure you want to permanently delete this student?')) {
+      deleteMutation.mutate(
+        {},
+        {
+          onSuccess: () => {
+            navigate({ to: '/students' });
+          },
+        }
+      );
+    }
+  };
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div style={{ padding: '2rem' }}>
+        <h1>Loading student profile...</h1>
+      </div>
+    );
+  }
+
+  // Error state
+  if (isError || !student) {
+    return (
+      <div style={{ padding: '2rem' }}>
+        <h1>Error Loading Student</h1>
+        <p style={{ color: 'red' }}>
+          {error instanceof Error ? error.message : 'Student not found'}
+        </p>
+        <Link to="/students" style={{ color: '#007bff' }}>
+          ← Back to Student List
+        </Link>
+      </div>
+    );
+  }
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -127,13 +134,12 @@ function StudentDashboardComponent() {
           <div>
             <h2>Student Profile</h2>
             {isEditing ? (
-             
               <div
                 style={{
                   border: '1px solid #ddd',
                   padding: '1.5rem',
                   borderRadius: '8px',
-                  backgroundColor: '#f0f8ff', 
+                  backgroundColor: '#f0f8ff',
                 }}
               >
                 <h3>Editing Profile</h3>
@@ -161,29 +167,44 @@ function StudentDashboardComponent() {
                   />
                   {updateMutation.isError && (
                     <div style={{ color: 'red' }}>
-                      Error:{' '}
-                      {updateMutation.error instanceof Error
-                        ? updateMutation.error.message
-                        : 'An unknown error occurred'}
+                      Error: {updateMutation.error?.message || 'An unknown error occurred'}
                     </div>
                   )}
                   <div style={{ display: 'flex', gap: '0.5rem' }}>
                     <button
                       onClick={handleSaveChanges}
                       disabled={updateMutation.isPending}
-                      style={{ backgroundColor: '#28a745', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer' }} // Green for save
+                      style={{
+                        backgroundColor: '#28a745',
+                        color: 'white',
+                        border: 'none',
+                        padding: '0.5rem 1rem',
+                        borderRadius: '4px',
+                        cursor: updateMutation.isPending ? 'not-allowed' : 'pointer',
+                      }}
                     >
                       {updateMutation.isPending ? 'Saving...' : 'Save Changes'}
                     </button>
-                    <button onClick={handleCancelEdit} style={{ backgroundColor: '#6c757d', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer' }}>Cancel</button>
+                    <button
+                      onClick={handleCancelEdit}
+                      style={{
+                        backgroundColor: '#6c757d',
+                        color: 'white',
+                        border: 'none',
+                        padding: '0.5rem 1rem',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Cancel
+                    </button>
                   </div>
                 </div>
               </div>
             ) : (
-              // --- VIEW MODE ---
               <>
                 <button
-                  onClick={() => setIsEditing(true)} // Enter edit mode
+                  onClick={() => setIsEditing(true)}
                   style={{
                     marginBottom: '1rem',
                     padding: '0.5rem 1rem',
@@ -237,32 +258,23 @@ function StudentDashboardComponent() {
                     border: 'none',
                     padding: '0.5rem 1rem',
                     borderRadius: '4px',
-                    cursor: 'pointer',
+                    cursor: deleteMutation.isPending ? 'not-allowed' : 'pointer',
                   }}
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        'Are you sure you want to permanently delete this student?',
-                      )
-                    ) {
-                      deleteMutation.mutate();
-                    }
-                  }}
+                  onClick={handleDelete}
+                  disabled={deleteMutation.isPending}
                 >
                   {deleteMutation.isPending ? 'Deleting...' : 'Delete Student'}
                 </button>
                 {deleteMutation.isError && (
                   <div style={{ color: 'red', marginTop: '0.5rem' }}>
-                    Error:{' '}
-                    {deleteMutation.error instanceof Error
-                      ? deleteMutation.error.message
-                      : 'An unknown error occurred'}
+                    Error: {deleteMutation.error?.message || 'An unknown error occurred'}
                   </div>
                 )}
               </div>
             )}
           </div>
         );
+
       case 'Courses':
         return (
           <div>
@@ -286,9 +298,7 @@ function StudentDashboardComponent() {
                     </p>
                     <p>
                       <strong>Enrolled:</strong>{' '}
-                      {new Date(
-                        enrollment.enrollmentDate,
-                      ).toLocaleDateString()}
+                      {new Date(enrollment.enrollmentDate).toLocaleDateString()}
                     </p>
                   </div>
                 ))
@@ -296,6 +306,7 @@ function StudentDashboardComponent() {
             </div>
           </div>
         );
+
       case 'Submissions':
         return (
           <div>
@@ -326,6 +337,7 @@ function StudentDashboardComponent() {
             </div>
           </div>
         );
+
       case 'Notifications':
         return (
           <div>
@@ -357,10 +369,12 @@ function StudentDashboardComponent() {
             </div>
           </div>
         );
+
       default:
         return <div>Select a tab to view content</div>;
     }
   };
+
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
       <nav
@@ -374,14 +388,14 @@ function StudentDashboardComponent() {
           {student.name} {student.lastname}'s Dashboard
         </h1>
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-          {tabs.map((tab, tabIndex) => {
+          {tabs.map((tab) => {
             const isActive = activeTab === tab;
             const isSignOut = tab === 'Sign Out';
 
             return (
               <button
                 onClick={() => handleTabClick(tab)}
-                key={tabIndex}
+                key={tab}
                 style={{
                   padding: '0.5rem 1rem',
                   border: 'none',
@@ -417,9 +431,7 @@ function StudentDashboardComponent() {
         &larr; Back to Student List
       </Link>
 
-      <main style={{ padding: '0 2rem 2rem 2rem' }}>
-        {renderTabContent()}
-      </main>
+      <main style={{ padding: '0 2rem 2rem 2rem' }}>{renderTabContent()}</main>
     </div>
   );
 }
