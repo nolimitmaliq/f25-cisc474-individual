@@ -1,6 +1,6 @@
 import {Controller,Get,Post,Body,Patch,Param,Delete,UsePipes,
   UseGuards,
-  Req,} from '@nestjs/common';
+  Req, BadRequestException} from '@nestjs/common';
 import { StudentsService } from './students.service';
 // import { Student} from '@repo/database';
 import { StudentOut,StudentUpdateIn, StudentCreateIn} from '@repo/api/index';
@@ -32,12 +32,25 @@ export class StudentsController {
   
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  @UsePipes(new ZodPipe(StudentCreateIn))
-  // Unfortunately, a bug in Zod causes this to crash with heap out of memory
-  // But at least we get some compile-time type-safety, if not runtime validation
-  create(@Body() createStudentDto: StudentCreateIn, @CurrentUser() user: JwtUser): Promise<StudentOut> {
+  async create(
+    @Body() rawBody: unknown, // Get the raw body
+    @CurrentUser() user: JwtUser,
+  ): Promise<StudentOut> {
+    
+    // Manually validate the body using safeParse
+    const parseResult = StudentCreateIn.safeParse(rawBody);
 
-    return this.studentsService.create(createStudentDto, user.sub);
+    // If validation fails, throw a clean 400 error
+    if (!parseResult.success) {
+      throw new BadRequestException({
+        message: 'Validation failed',
+        errors: parseResult.error.flatten().fieldErrors,
+      });
+    }
+
+    // If validation succeeds, use the typesafe data
+    // parseResult.data is now guaranteed to match StudentCreateIn
+    return this.studentsService.create(parseResult.data, user.sub);
   }
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
