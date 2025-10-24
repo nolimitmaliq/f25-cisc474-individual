@@ -5,10 +5,14 @@ import {
           Body,
             Patch,
               Param,
-                Delete,
+                Delete, UseGuards
                 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Users,Role } from '@repo/database';
+import { CurrentUser } from 'src/auth/current-user.decorator';
+import { JwtUser } from 'src/auth/jwt.strategy';
+import { AuthGuard } from '@nestjs/passport';
+import {UnauthorizedException} from '@nestjs/common';
 interface CreateUserDto {
   email: string;
   password: string;
@@ -56,5 +60,24 @@ export class UsersController {
   @Delete(':id')
   removeUser(@Param('id') id: string): Promise<Users> {
     return this.usersService.remove(id);
+  }
+
+  @UseGuards(AuthGuard('jwt')) 
+  @Get('me')                   
+  async me(@CurrentUser() auth: JwtUser){
+    console.log(auth);
+    if (!auth || !auth.userId) {
+      throw new UnauthorizedException();
+    }
+    const user = await this.usersService.findOne(auth.userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return {
+      user_id: user.user_id,
+      name: user.name,
+      email: user.email,
+      lastname : user.lastname
+    };
   }
 }
