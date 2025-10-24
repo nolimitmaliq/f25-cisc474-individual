@@ -11,10 +11,10 @@ function StudentDashboardComponent() {
   const { id } = Route.useParams();
   const navigate = useNavigate();
 
-  // Fetch student data using useApiQuery for Auth0 authentication
+  // FIXED: Removed /api prefix to match backend
   const { data: student, isLoading, isError, error } = useApiQuery<StudentOut>(
     ['students', id],
-    `/api/students/${id}`
+    `/students/${id}`  // ✅ Matches backend @Get(':id')
   );
 
   const [isEditing, setIsEditing] = useState(false);
@@ -31,19 +31,19 @@ function StudentDashboardComponent() {
     }
   });
 
-  // Update mutation using useApiMutation
+  // FIXED: Removed /api prefix
   const updateMutation = useApiMutation<StudentUpdateIn, StudentOut>({
     endpoint: () => ({
-      path: `/api/students/${id}`,
+      path: `/students/${id}`,  // ✅ Matches backend @Patch(':id')
       method: 'PATCH',
     }),
     invalidateKeys: [['students', 'list'], ['students', id]],
   });
 
-  // Delete mutation using useApiMutation
+  // FIXED: Removed /api prefix
   const deleteMutation = useApiMutation<Record<string, never>, { message: string }>({
     endpoint: () => ({
-      path: `/api/students/${id}`,
+      path: `/students/${id}`,  // ✅ Matches backend @Delete(':id')
       method: 'DELETE',
     }),
     invalidateKeys: [['students', 'list']],
@@ -59,7 +59,6 @@ function StudentDashboardComponent() {
       setActiveTab(tab);
       if (isEditing) {
         setIsEditing(false);
-        // Reset form fields when switching tabs
         if (student) {
           setName(student.name ?? '');
           setLastname(student.lastname ?? '');
@@ -82,7 +81,6 @@ function StudentDashboardComponent() {
 
   const handleCancelEdit = () => {
     setIsEditing(false);
-    // Reset form fields
     if (student) {
       setName(student.name ?? '');
       setLastname(student.lastname ?? '');
@@ -103,7 +101,6 @@ function StudentDashboardComponent() {
     }
   };
 
-  // Loading state
   if (isLoading) {
     return (
       <div style={{ padding: '2rem' }}>
@@ -112,7 +109,6 @@ function StudentDashboardComponent() {
     );
   }
 
-  // Error state
   if (isError || !student) {
     return (
       <div style={{ padding: '2rem' }}>

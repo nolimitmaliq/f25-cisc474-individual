@@ -1,23 +1,40 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { useNavigate } from '@tanstack/react-router';
+import { useAuth0 } from '@auth0/auth0-react';
 import '../style/Homepage.css';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
 });
-function HomePage() {
-//   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navigate = useNavigate();
+function HomePage() {
+  // Get Auth0 login function
+  const { loginWithRedirect } = useAuth0();
 
   const navigationItems = [
     { name: "About", href: "#about" },
     { name: "Contact Us", href: "#contact" }
   ];
 
+  // Trigger Auth0 login flow
   const handleLoginClick = () => {
-    navigate({to:"/login"})
-};
+    loginWithRedirect({
+      appState: {
+        returnTo: '/home' // Where to redirect after successful login
+      }
+    });
+  };
+
+  // Trigger Auth0 signup flow
+  const handleSignupClick = () => {
+    loginWithRedirect({
+      authorizationParams: {
+        screen_hint: 'signup', // This tells Auth0 to show signup screen
+      },
+      appState: {
+        returnTo: '/home'
+      }
+    });
+  };
 
   return (
     <>
@@ -43,8 +60,12 @@ function HomePage() {
               </div>
 
               <div className="auth-buttons">
-                <button className="login-btn" onClick={handleLoginClick}>Log in</button>
-                <button className="signup-btn">Sign up</button>
+                <button className="login-btn" onClick={handleLoginClick}>
+                  Log in
+                </button>
+                <button className="signup-btn" onClick={handleSignupClick}>
+                  Sign up
+                </button>
               </div>
             </div>
           </div>

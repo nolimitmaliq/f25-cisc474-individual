@@ -19,7 +19,6 @@ export const SubmissionRef = z.object({
   id: z.string().cuid(), 
   status: SubmissionStatus, 
   grade: z.number().int().nullable(), 
-  // You may want to add assignment details here
 });
 export type SubmissionRef = z.infer<typeof SubmissionRef>;
 
@@ -51,12 +50,15 @@ export const StudentOut = z.object({
 });
 export type StudentOut = z.infer<typeof StudentOut>;
 
+// FIXED: Proper validation for StudentCreateIn
 export const StudentCreateIn = z.object({
   email: z.string().email(),
-  password: z.string().min(8, { message: 'Password must be at least 8 characters' }), 
-  name: z.string().min(1).optional().nullable(),
-  lastname: z.string().min(1).optional().nullable(), 
-  major: z.string().min(1).optional().nullable(), 
+  password: z.string().min(8, { message: 'Password must be at least 8 characters' }).optional(), 
+  // Name and lastname are required and must be non-empty
+  name: z.string().min(1, { message: 'Name is required' }),
+  lastname: z.string().min(1, { message: 'Last name is required' }), 
+  // Major can be an empty string or a non-empty string (not optional, always present)
+  major: z.string().default(''), // Accepts empty string, defaults to empty string if not provided
 });
 export type StudentCreateIn = z.infer<typeof StudentCreateIn>;
 
@@ -71,4 +73,3 @@ export const StudentUpdateIn = z.object({
   major: z.string().optional().nullable(), 
 });
 export type StudentUpdateIn = z.infer<typeof StudentUpdateIn>;
-
