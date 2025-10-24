@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException,ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service'
 import { Student} from '@repo/database';
 import type { StudentOut,StudentCreateIn,StudentUpdateIn } from '@repo/api/index';
@@ -30,7 +30,7 @@ export class StudentsService {
       })),
     };
   }
-  async create(createStudentDto: StudentCreateIn): Promise<StudentOut> {
+  async create(createStudentDto: StudentCreateIn, authenticatedUserId: string): Promise<StudentOut> {
         
         const existingUser = await this.prisma.users.findUnique({
             where: { email: createStudentDto.email },
@@ -44,8 +44,9 @@ export class StudentsService {
                     major: createStudentDto.major,
                     user: {
                         create: {
+                            user_id: authenticatedUserId,
                             email: createStudentDto.email,
-                            password: createStudentDto.password,
+                            // password: createStudentDto.password,
                             name: createStudentDto.name,
                             lastname: createStudentDto.lastname,
                             role: 'Student',
@@ -100,7 +101,10 @@ export class StudentsService {
     return students.map(this.mapStudentToDto);
   }
 
-  async update(id: string,updateStudentDto: StudentUpdateIn,): Promise<StudentOut> {
+  async update(id: string,updateStudentDto: StudentUpdateIn,authenticatedUserId:string): Promise<StudentOut> {
+    if (id !== authenticatedUserId) {
+    throw new ForbiddenException('You are not allowed to update this resource.');
+  }
     const updatedStudent = await this.prisma.student.update({
         where: { id: id },
         data: {
@@ -122,7 +126,10 @@ export class StudentsService {
 
       return this.mapStudentToDto(updatedStudent);
   }
-  async delete(id: string): Promise<{ message: string }> {
+  async delete(id: string, authenticatedUserId:string): Promise<{ message: string }> {
+    if (id !== authenticatedUserId) {
+    throw new ForbiddenException('You are not allowed to update this resource.');
+  }
     // 1. First, find the student to get their associated userId
     const student = await this.prisma.student.findUnique({
       where: { id: id },

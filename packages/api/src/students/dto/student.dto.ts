@@ -52,7 +52,7 @@ export const StudentOut = z.object({
 export type StudentOut = z.infer<typeof StudentOut>;
 
 export const StudentCreateIn = z.object({
-  email: z.string().email(), // [cite: 2]
+  email: z.string().email(),
   password: z.string().min(8, { message: 'Password must be at least 8 characters' }), 
   name: z.string().min(1).optional().nullable(),
   lastname: z.string().min(1).optional().nullable(), 
